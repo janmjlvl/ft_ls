@@ -6,12 +6,12 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/15 15:03:45 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/15 15:14:05 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "libft/libft.h"
+#include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
