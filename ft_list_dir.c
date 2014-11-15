@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:35:05 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/15 13:57:33 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/15 14:57:08 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char		**ft_list_dir(char *dirname)
 		*result = dp->d_name;
 		result++;
 	}
+	*result = NULL;
 	return (result - file_nbr);
 }
 
