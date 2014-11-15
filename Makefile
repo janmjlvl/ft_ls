@@ -6,7 +6,7 @@
 #    By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/14 10:03:13 by vle-guen          #+#    #+#              #
-#    Updated: 2014/11/14 11:02:13 by vle-guen         ###   ########.fr        #
+#    Updated: 2014/11/15 11:24:10 by nmeier           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -25,13 +25,14 @@ $(LIBFT) :
 	$(MAKE) -C libft
 
 %.o : %.c
-	gcc -c $^ $(CFLAGS) -I ./libft/includes
+	gcc -c $^ $(CFLAGS) -I ./libft/includes -I .
 
-fclean :
-	rm -rf $(NAME)
+fclean : clean
+	rm -f $(NAME)
 
 clean :
-	rm -rf $(OBJS)
+	rm -f $(OBJS)
 
-re :
-	fclean all
+re : fclean all
+
+.PHONY: fclean clean
