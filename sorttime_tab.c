@@ -6,7 +6,7 @@
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:28:38 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/15 16:40:18 by jlevieil         ###   ########.fr       */
+/*   Updated: 2014/11/16 14:27:23 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,45 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void		swap(int *tab, int p1, int p2)
+void		swap(char **tab, int *tmp, int i, int j)
 {
-	int		tmp;
+	int		i_tmp;
+	char	*tab_tmp;
 
-	tmp = tab[p1];
-	tab[p1] = tab[p2];
-	tab[p2] = tmp;
+	i_tmp = tmp[i];
+	tab_tmp = tab[i];
+	tmp[i] = tmp[j];
+	tab[i] = tab[j];
+	tmp[j] = i_tmp;
+	tab[j] = tab_tmp;
 }
 
-void		swap_char(char **tab, int p1, int p2)
+void		quick_sort(char **tab, int *tmp, int start, int end)
 {
-	char	*tmp;
+	int pivot;
+	int left;
+	int right;
 
-	tmp = tab[p1];
-	tab[p1] = tab[p2];
-	tab[p2] = tmp;
-}
-
-void		sort(char **tab, int *tmp)
-{
-	int		i;
-	int		if_sort;
-
-	while (if_sort != 1)
+	pivot = tmp[start];
+	left = start - 1;
+	right = end + 1;
+	if (start >= end)
+		return ;
+	while (1)
 	{
-		if_sort = 1;
-		i = 0;
-		while (tmp[i + 1] != -2)
-		{
-			if (tmp[i] < tmp[i + 1])
-			{
-				swap(tmp, i, i + 1);
-				swap_char(tab, i, i + 1);
-				if_sort = 0;
-			}
-			i++;
-		}
+		right--;
+		while (tmp[right] < pivot)
+			right--;
+		left++;
+		while (tmp[left] > pivot)
+			left++;
+		if (left < right)
+			swap(tab, tmp, left, right);
+		else
+			break ;
 	}
+	quick_sort(tab, tmp, start, right);
+	quick_sort(tab, tmp, right + 1, end);
 }
 
 char		**sorttime_tab(char **tab)
@@ -75,7 +76,6 @@ char		**sorttime_tab(char **tab)
 		tmp[i] = s_stat.st_mtime;
 		i++;
 	}
-	tmp[i] = -2;
-	sort(tab, tmp);
+	quick_sort(tab, tmp, 0, i - 1);
 	return (tab);
 }
