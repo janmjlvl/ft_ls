@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/16 12:23:26 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/16 15:12:35 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,25 @@
 void		ft_display_tab(char **tab, t_ls_options* opts)
 {
 	int i;
+	int tmp;
+	int maxlen;
+	int colnbr;
 
-	//ft_putendl("DISPLAY_TAB");
+	i = 0;
+	maxlen = ft_strlen(tab[0]);
+	while (tab[i] != NULL)
+	{
+		if ((tmp = ft_strlen(tab[i])) > maxlen)
+			maxlen = tmp;
+		i++;
+	}
+	colnbr = opts->termwidth / (maxlen + ((maxlen) % 6));
+	/*ft_putstr("Col nbr: ");
+	ft_putnbr(colnbr);
+	ft_putchar('\n');*/
+
 	if (opts->r == 0)
 	{
-		//ft_putendl("no r");
 		i = 0;
 		while (tab[i] != NULL)
 		{
@@ -31,9 +45,6 @@ void		ft_display_tab(char **tab, t_ls_options* opts)
 	}
 	else
 	{
-		//J'ai corriger le probleme du -r n'afficher rien, yavait (*tab)[0]
-		//alors k'il fallait tab[i][0]
-		//ft_putendl("r");
 		i = ft_ptrlen(tab) - 1;
 		while (i >= 0)
 		{
