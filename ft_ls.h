@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 14:50:02 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/16 10:36:41 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/16 12:46:25 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		sortlg_tab(char	**tab);
 int			splitnames(char **tab, char ***files, char ***dir);
 void		ft_redirec(t_ls_options *opts);
 char		**sorttime_tab(char **tab);
+void		revsortlg_tab(char **tab);
 void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts);
 
 #endif
