@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/16 11:17:42 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/16 12:45:11 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,6 @@ void	find_filenames(t_ls_options *opt, char **argv, int opt_offset)
 		opt->names[0] = ft_strdup(".");
 		opt->names[1] = NULL;
 	}
-	/*
-	ft_putstr("Found ");
-	ft_putnbr(opt->files_nbr);
-	ft_putendl(" files");
-	i = 0;
-	while (i < opt->files_nbr)
-	{
-		ft_putstr("Filename: ");
-		ft_putendl(opt->names[i]);
-		i++;
-	}*/
 }
 
 void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts)

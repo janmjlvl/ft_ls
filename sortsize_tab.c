@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sorttime_tab.c                                     :+:      :+:    :+:   */
+/*   sortsize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/15 13:28:38 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/16 14:27:23 by jlevieil         ###   ########.fr       */
+/*   Created: 2014/11/16 12:42:30 by jlevieil          #+#    #+#             */
+/*   Updated: 2014/11/16 14:01:28 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		quick_sort(char **tab, int *tmp, int start, int end)
 	quick_sort(tab, tmp, right + 1, end);
 }
 
-char		**sorttime_tab(char **tab)
+char		**sortsize_tab(char **tab)
 {
 	struct stat		s_stat;
 	int				i;
@@ -66,14 +66,14 @@ char		**sorttime_tab(char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i + 1);
+	tmp = (int*)malloc(sizeof(int) * i);
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	while (tab[i] != '\0')
 	{
 		stat(tab[i], &s_stat);
-		tmp[i] = s_stat.st_mtime;
+		tmp[i] = s_stat.st_size;
 		i++;
 	}
 	quick_sort(tab, tmp, 0, i - 1);
