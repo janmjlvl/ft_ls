@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/16 15:12:35 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/16 15:22:01 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		ft_display_tab(char **tab, t_ls_options* opts)
 		i++;
 	}
 	colnbr = opts->termwidth / (maxlen + ((maxlen) % 6));
+	(void)colnbr;
 	/*ft_putstr("Col nbr: ");
 	ft_putnbr(colnbr);
 	ft_putchar('\n');*/
