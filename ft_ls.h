@@ -6,7 +6,6 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 14:50:02 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/16 14:56:29 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +21,7 @@ typedef	struct	s_ls_options
 	int		mr;
 	int		r;
 	int		t;
+	int		termwidth;
 }				t_ls_options;
 
 void		ft_display_tab(char **tab, t_ls_options* opts);
@@ -34,5 +34,6 @@ char		**sorttime_tab(char **tab);
 void		revsortlg_tab(char **tab);
 void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts);
 void		ft_bigr(t_ls_options *opts, char *dir, int i, int first);
+char		**sortsize_tab(char **tab);
 
 #endif
