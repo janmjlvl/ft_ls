@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/16 12:46:29 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/16 15:07:31 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	ft_redirec(t_ls_options *opts)
 			revsortlg_tab(dir);
 		else
 			sortlg_tab(dir);
+		while (dir[i] != NULL && opts->mr == 1)
+		{
+			ft_bigr(opts, dir[i], 0, 1);
+			i++;
+		}
 		while (dir[i] != NULL)
 		{
 			if (*files || dir[1] != NULL)
