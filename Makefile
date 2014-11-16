@@ -6,7 +6,7 @@
 #    By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/14 10:03:13 by vle-guen          #+#    #+#              #
-#    Updated: 2014/11/16 10:48:17 by nmeier           ###   ########.fr        #
+#    Updated: 2014/11/16 11:49:08 by nmeier           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -25,7 +25,7 @@ $(LIBFT) :
 	$(MAKE) -C libft
 
 %.o : %.c
-	gcc -c $^ $(CFLAGS) -I ./libft/includes -I .
+	gcc -c $^ $(CFLAGS) -I ./libft -I .
 
 fclean : clean
 	rm -f $(NAME)

@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 13:32:29 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 16:14:55 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/05 18:14:56 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/08 17:46:17 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
 #include "libft.h"
+#include <stdlib.h>
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char *ft_strjoin(char const *s1, char const *s2)
 {
-	char	*dest;
-	size_t	i;
-	size_t	j;
+	int		s1_len;
+	int		s2_len;
+	char	*result;
+	int		i;
 
-	i = 0;
-	j = 0;
-	if ((s1) && (s2))
+	if (!s1 || !s2)
+		return (NULL);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	result = malloc (s1_len + s2_len + 1);
+	if (result != NULL)
 	{
-		dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-		if (dest)
+		i = 0;
+		while (i < s1_len + s2_len)
 		{
-			while (i < ft_strlen(s1))
-			{
-				dest[i] = s1[i];
-				i++;
-			}
-			while (i < ft_strlen(s1) + ft_strlen(s2))
-				dest[i++] = s2[j++];
-			dest[i] = '\0';
-			return (dest);
+			if (i < s1_len)
+				result[i] = s1[i];
+			else
+				result[i] = s2[i - s1_len];
+			i++;
 		}
+		result[i] = '\0';
 	}
-	return (0);
+	return (result);
 }

@@ -3,38 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 16:31:42 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 16:17:22 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/04 17:20:37 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/05 17:19:20 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
-#include <stdlib.h>
 
-void			*ft_memmove(void *dst, const void *src, size_t len)
+void		*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char		*pdst;
-	const char	*psrc;
-	char		*tmp;
-	size_t		i;
+	size_t				i;
+	unsigned char		temp[len];
+	const unsigned char	*src_cast;
+	unsigned char		*dst_cast;
 
-	pdst = dst;
-	psrc = src;
-	tmp = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	src_cast = src;
+	dst_cast = dst;
 	i = 0;
 	while (i < len)
 	{
-		tmp[i] = psrc[i];
+		temp[i] = src_cast[i];
 		i++;
 	}
 	i = 0;
 	while (i < len)
 	{
-		pdst[i] = tmp[i];
+		dst_cast[i] = temp[i];
 		i++;
 	}
-	return (pdst);
+	return (dst);
 }

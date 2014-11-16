@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 16:45:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 16:51:05 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/06 13:47:49 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/06 13:48:52 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putnbr(int n)
+void ft_putnbr(int n)
 {
 	ft_putstr(ft_itoa(n));
 }

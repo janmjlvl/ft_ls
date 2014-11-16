@@ -3,50 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 13:35:04 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 13:59:18 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/04 16:11:18 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/08 17:40:46 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(char c)
+static int	ft_numlen(const char *str)
 {
-	if (c == '\t' || c == '\r' || c == '\v' || c == '\f' || c == '\n')
-		return (1);
-	else if (c == ' ')
+	int i;
+
+	i = 0;
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	return (i);
+}
+
+static int	ft_pow(int i, int p)
+{
+	if (p == 0)
 		return (1);
 	else
-		return (0);
+		return (ft_pow(i, p - 1) * i);
+}
+
+static int	ft_atoui(const char *str)
+{
+	int i;
+	int len;
+	int result;
+
+	len = ft_numlen(str);
+	i = 0;
+	result = 0;
+	while (i < len)
+	{
+		result += (str[i] - 48) * ft_pow(10, len - 1 - i);
+		i++;
+	}
+	return (result);
+}
+
+static int	is_space(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v'
+	|| c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
 }
 
 int			ft_atoi(const char *str)
 {
-	int		i;
-	int		nbr;
-	int		neg;
-
-	i = 0;
-	nbr = 0;
-	neg = 1;
-	while (ft_isspace(str[i]) == 1)
-		i++;
-	if (str[i] == '-')
-	{
-		neg = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-	if (str[i] < '0' || str[i] > '9')
-		nbr = 0;
-	while ((str[i] >= '0' && str[i] <= '9') && str[i] != '\0')
-	{
-		nbr = nbr * 10 + str[i] - 48;
-		i++;
-	}
-	nbr = nbr * neg;
-	return (nbr);
+	while (is_space(*str) && *str)
+		str++;
+	if (*str == '-')
+		return (-ft_atoui(str + 1));
+	else if (*str == '+')
+		return (ft_atoui(str + 1));
+	else
+		return (ft_atoui(str));
 }

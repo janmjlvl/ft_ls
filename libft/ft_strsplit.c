@@ -3,77 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/08 15:53:04 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 16:13:02 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/06 13:09:57 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/08 17:47:22 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-static int		ft_delim(char c, char c2)
+static int	get_words_number(char const *s, char delim)
 {
-	if (c == c2)
-		return (1);
-	return (0);
-}
-
-static int		ft_find_nb_words(char *str, char c)
-{
-	int			result;
+	int result;
+	int in_word;
 
 	result = 0;
-	while (*str)
+	in_word = 0;
+	while (*s != '\0')
 	{
-		while (ft_delim(*str, c))
-			str++;
-		if (*str)
+		if (!in_word && *s != delim)
+		{
+			in_word = 1;
 			result++;
-		while (!ft_delim(*str, c) && *str)
-			str++;
+		}
+		if (in_word && *s == delim)
+		{
+			in_word = 0;
+		}
+		s++;
 	}
 	return (result);
 }
 
-static char		**ft_split_func(char *str, int nb_words, int *i, char c)
+static int	get_word_len(char const *s, char delim)
 {
-	int			i3;
-	int			word_size;
-	char		**result;
+	int i;
 
-	if (!(result = malloc(sizeof(char*) * (nb_words + 1))))
+	i = 0;
+	while (s[i] != delim && s[i] != '\0')
+		i++;
+	return (i);
+}
+
+char		**ft_strsplit(char const *s, char c)
+{
+	int		words_nbr;
+	char	**result;
+	int		word_len;
+	int		i;
+
+	if (!s)
 		return (NULL);
-	while (i[0] < nb_words)
+	words_nbr = get_words_number(s, c);
+	result = (char**)malloc(sizeof(char*) * (words_nbr + 1));
+	if (result != NULL)
 	{
-		while (ft_delim(str[i[1]], c))
-			i[1]++;
-		word_size = 0;
-		while (!ft_delim(str[i[1] + word_size], c) && str[i[1] + word_size])
-			word_size++;
-		if (!(result[i[0]] = malloc(sizeof(char) * (word_size + 1))))
-			return (NULL);
-		i3 = -1;
-		while (++i3 < word_size)
-			result[i[0]][i3] = str[i[1] + i3];
-		result[i[0]][i3] = '\0';
-		i[1] += word_size;
-		i[0]++;
+		i = 0;
+		while (i < words_nbr)
+		{
+			while (*s == c)
+				s++;
+			word_len = get_word_len(s, c);
+			result[i] = ft_strsub(s, 0, word_len);
+			s += word_len;
+			i++;
+		}
+		result[i] = NULL;
 	}
-	result[i[0]] = (NULL);
 	return (result);
-}
-
-char			**ft_strsplit(char const *s, char c)
-{
-	int			i[2];
-
-	if ((s) && (c))
-	{
-		i[0] = 0;
-		i[1] = 0;
-		return (ft_split_func((char*)s, ft_find_nb_words((char*)s, c), i, c));
-	}
-	return (NULL);
 }

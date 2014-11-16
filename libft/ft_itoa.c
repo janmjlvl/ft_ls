@@ -3,60 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/07 13:45:22 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 12:52:55 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/06 13:27:03 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/08 17:42:10 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
 #include "libft.h"
+#include <stdlib.h>
 
-static int	ft_find_length(int n)
+#define BUFSIZE 20
+
+static inline int	absol(int *n)
 {
-	int		i;
-
-	i = 0;
-	if (n < 0)
+	if (*n < 0)
 	{
-		n = -n;
-		i++;
+		*n = -(*n);
+		return (1);
 	}
-	while (n > 9)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
+	return (0);
 }
 
-char		*ft_itoa(int n)
+static void			loop(char *buf, int *n, int *i)
 {
-	char	*str;
+	while (*n >= 10)
+	{
+		buf[BUFSIZE - *i] = (*n % 10) + 48;
+		*n /= 10;
+		*i = *i + 1;
+	}
+}
+
+char				*ft_itoa(int n)
+{
+	char	*buf;
+	char	*result;
+	int		neg;
 	int		i;
 
 	if (n == -2147483648)
 		return (ft_strcpy(ft_strnew(11), "-2147483648"));
-	i = ft_find_length(n);
-	str = (char *)malloc(sizeof(char) * (i + 1));
-	if (str)
+	buf = ft_strnew(BUFSIZE);
+	if (buf != NULL)
 	{
-		str[i + 1] = '\0';
-		if (n < 0)
+		i = 1;
+		neg = absol(&n);
+		loop(buf, &n, &i);
+		buf[BUFSIZE - i] = n + 48;
+		if (neg)
 		{
-			n = -n;
-			str[0] = '-';
+			i++;
+			buf[BUFSIZE - i] = '-';
 		}
-		while (n > 9)
-		{
-			str[i--] = (n % 10) + 48;
-			n = n / 10;
-		}
-		str[i] = n + 48;
-		return (str);
+		result = ft_strsub(buf, BUFSIZE - i, i);
+		free(buf);
+		buf = result;
 	}
-	else
-		return (0);
+	return (buf);
 }

@@ -3,26 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 13:26:41 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/07 16:32:43 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/04 14:46:16 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/05 14:53:14 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strcpy(char *dst, const char *src)
+char *ft_strcpy(char *dst, const char *src)
 {
-	int	i;
+	char *dst_save;
 
-	i = 0;
+	dst_save = dst;
 	while (*src)
 	{
-		dst[i] = *src;
-		++src;
-		++i;
+		*dst = *src;
+		src++;
+		dst++;
 	}
-	dst[i] = '\0';
-	return (dst);
+	*dst = *src;
+	return (dst_save);
 }

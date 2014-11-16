@@ -3,35 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 13:56:33 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/08 17:12:39 by vle-guen         ###   ########.fr       */
+/*   Created: 2014/11/05 18:54:22 by nmeier            #+#    #+#             */
+/*   Updated: 2014/11/07 15:55:41 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
 #include "libft.h"
+#include <stdio.h>
 
-char				*ft_strtrim(char const *s)
+static int		is_whitespace(char c)
 {
-	char			*dest;
-	size_t			i;
-	int				j;
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	else
+		return (0);
+}
 
-	if (s)
+static int		num_pr_sp(char const *s)
+{
+	int i;
+
+	i = 0;
+	while (is_whitespace(s[i]))
+		i++;
+	return (i);
+}
+
+static int		num_tr_sp(char const *s)
+{
+	int i;
+	int j;
+
+	i = ft_strlen(s) - 1;
+	j = 0;
+	while (is_whitespace(s[i]))
 	{
-		i = 0;
-		j = ft_strlen(s) - 1;
-		while (s[i] != '\0' && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n'))
-			i++;
-		if (i == ft_strlen(s))
-			return (ft_strnew(0));
-		while ((j > 0) && (s[j] == ' ' || s[j] == '\n' || s[j] == '\t'))
-			j--;
-		dest = ft_strsub(s, i, j - i + 1);
-		return (dest);
+		j++;
+		i--;
 	}
-	return (0);
+	return (j);
+}
+
+char			*ft_strtrim(char const *s)
+{
+	int pr_sp;
+	int tr_sp;
+	int len;
+
+	if (!s)
+		return (NULL);
+	pr_sp = num_pr_sp(s);
+	tr_sp = num_tr_sp(s);
+	len = ft_strlen(s);
+	if (pr_sp == len)
+		return (ft_strnew(0));
+	return (ft_strsub(s, pr_sp, len - tr_sp - pr_sp));
 }
