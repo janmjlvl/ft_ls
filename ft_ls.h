@@ -6,11 +6,8 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 14:50:02 by vle-guen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2014/11/16 14:02:19 by jlevieil         ###   ########.fr       */
+/*   Updated: 2014/11/16 14:32:32 by nmeier           ###   ########.fr       */
 /*   Updated: 2014/11/16 12:46:25 by nmeier           ###   ########.fr       */
-=======
->>>>>>> FETCH_HEAD
 /*   Updated: 2014/11/16 12:46:25 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -27,6 +24,7 @@ typedef	struct	s_ls_options
 	int		mr;
 	int		r;
 	int		t;
+	int		termwidth;
 }				t_ls_options;
 
 void		ft_display_tab(char **tab, t_ls_options* opts);

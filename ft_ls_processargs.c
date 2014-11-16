@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/16 12:45:11 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/16 14:45:34 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "ft_ls.h"
 #include <stdlib.h>
+#include <sys/ioctl.h>
 
 int		find_options(t_ls_options *opt, char *s)
 {
@@ -49,6 +50,17 @@ int		find_options(t_ls_options *opt, char *s)
 	return (1);
 }
 
+int		getcolwidth()
+{
+	char	*str;
+	struct winsize window;
+	if ((str = getenv("COLUMNS")) != NULL)
+		return ft_atoi(str);
+	else if (ioctl(1, TIOCGWINSZ, &window) == 0 && window.ws_col > 0)
+		return window.ws_col;
+	return (80);
+}
+
 int		find_optoffset(t_ls_options *opt, int argc, char **argv)
 {
 	int				i;
@@ -56,6 +68,7 @@ int		find_optoffset(t_ls_options *opt, int argc, char **argv)
 	int				opt_offset;
 
 	ft_bzero(opt, sizeof(t_ls_options));
+	opt->termwidth = getcolwidth();
 	i = 1;
 	stop_opt = 1; /*indicateur de la fin des options (0 ou 1)*/
 	opt_offset = 1; /*index des argv indiquant le début des filenames*/
