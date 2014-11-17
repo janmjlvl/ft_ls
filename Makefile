@@ -11,27 +11,28 @@
 #******************************************************************************#
 
 NAME = ft_ls
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard srcs/*.c)
 CFLAGS = -Wall -Wextra -Werror
-OBJS = $(patsubst %.c, %.o, $(SRCS))
+OBJS = $(patsubst srcs/%.c, objs/%.o, $(SRCS))
 LIBFT = libft/libft.a
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(OBJS)
-	gcc -o $@ $(CFLAGS) $^
+$(NAME) : $(LIBFT)
+	gcc -o $@ $(CFLAGS) $(OBJS) $^
 
-$(LIBFT) :
+$(LIBFT) : $(OBJS)
 	$(MAKE) -C libft
 
-%.o : %.c
-	gcc -c $^ $(CFLAGS) -I ./libft -I .
+objs/%.o : srcs/%.c
+	gcc -c $^ -o $@ $(CFLAGS) -I./libft/includes -I./includes
+
+clean :
+	rm -f $(OBJS)
 
 fclean : clean
 	rm -f $(NAME)
 
-clean :
-	rm -f $(OBJS)
 
 re : fclean all
 
