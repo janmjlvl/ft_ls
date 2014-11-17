@@ -35,5 +35,6 @@ void		revsortlg_tab(char **tab);
 void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts);
 void		ft_bigr(t_ls_options *opts, char *dir, int i, int first);
 char		**sortsize_tab(char **tab);
+char **ft_ls_striphidden(char **tab);
 
 #endif
