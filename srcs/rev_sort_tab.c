@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_tab.c                                         :+:      :+:    :+:   */
+/*   rev_sort_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/18 17:04:03 by jabadie          ###   ########.fr       */
+/*   Created: 2014/11/18 16:36:38 by jabadie           #+#    #+#             */
+/*   Updated: 2014/11/18 17:03:45 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "../libft/includes/libft.h"
 
-void	insertion_sort(char **tab, int first, int last)
+void	rev_insertion_sort(char **tab, int first, int last)
 {
 	int		i;
 	int		i2;
@@ -26,7 +24,7 @@ void	insertion_sort(char **tab, int first, int last)
 	{
 		i2 = i;
 		tmp = tab[i];
-		while (i2 - 1 >= 0 && ft_strcmp(tmp, tab[i2 - 1]) < 0)
+		while (i2 - 1 >= 0 && ft_strcmp(tmp, tab[i2 - 1]) > 0)
 		{
 			tab[i2] = tab[i2 - 1];
 			i2--;
@@ -36,7 +34,7 @@ void	insertion_sort(char **tab, int first, int last)
 	}
 }
 
-void	create_stack(char **tab, int noeud, int size)
+void	rev_create_stack(char **tab, int noeud, int size)
 {
 	char	*tmp;
 	int		j;
@@ -44,9 +42,9 @@ void	create_stack(char **tab, int noeud, int size)
 	j = (noeud * 2) + 1;
 	while (j < size)
 	{
-		if (j + 1 < size && ft_strcmp(tab[j], tab[j + 1]) < 0)
+		if (j + 1 < size && ft_strcmp(tab[j], tab[j + 1]) > 0)
 			j++;
-		if (ft_strcmp(tab[noeud], tab[j]) < 0)
+		if (ft_strcmp(tab[noeud], tab[j]) > 0)
 		{
 			tmp = tab[noeud];
 			tab[noeud] = tab[j];
@@ -59,7 +57,7 @@ void	create_stack(char **tab, int noeud, int size)
 	}
 }
 
-void	heap_sort(char **tab, int first, int size)
+void	rev_heap_sort(char **tab, int first, int size)
 {
 	int		i;
 	char	*tmp;
@@ -67,7 +65,7 @@ void	heap_sort(char **tab, int first, int size)
 	i = (size / 2) - 1;
 	while (i >= first)
 	{
-		create_stack(tab, i, size);
+		rev_create_stack(tab, i, size);
 		i--;
 	}
 	i = size - 1;
@@ -76,25 +74,12 @@ void	heap_sort(char **tab, int first, int size)
 		tmp = tab[i];
 		tab[i] = tab[first];
 		tab[first] = tmp;
-		create_stack(tab, first, i);
+		rev_create_stack(tab, first, i);
 		i--;
 	}
 }
 
-int		simul_log(int n)
-{
-	int	i;
-
-	i = 1;
-	while (n > 9)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i * 3);
-}
-
-int		split_sort(char **tab, int first, int last)
+int		rev_split_sort(char **tab, int first, int last)
 {
 	int		i;
 	int		j;
@@ -108,9 +93,9 @@ int		split_sort(char **tab, int first, int last)
 	{
 		i++;
 		j--;
-		while (i < last && ft_strcmp(tab[i], tab[key]) < 0)
+		while (i < last && ft_strcmp(tab[i], tab[key]) > 0)
 			i++;
-		while (j >= first && ft_strcmp(tab[j], tab[key]) > 0)
+		while (j >= first && ft_strcmp(tab[j], tab[key]) < 0)
 			j--;
 		if (i < j)
 		{
@@ -125,38 +110,21 @@ int		split_sort(char **tab, int first, int last)
 	return (key);
 }
 
-void	quick_sort(char **tab, int first, int last, int depth)
+void	rev_quick_sort(char **tab, int first, int last, int depth)
 {
 	int	key;
 
 	if (first < last)
 	{
 		if (last - first <= 15)
-			insertion_sort(tab, first, last);
+			rev_insertion_sort(tab, first, last);
 		if (depth == 0)
-			heap_sort(tab, first, last + 1);
+			rev_heap_sort(tab, first, last + 1);
 		else
 		{
-			key = split_sort(tab, first, last);
-			quick_sort(tab, first, key - 1, depth - 1);
-			quick_sort(tab, key + 1, last, depth - 1);
+			key = rev_split_sort(tab, first, last);
+			rev_quick_sort(tab, first, key - 1, depth - 1);
+			rev_quick_sort(tab, key + 1, last, depth - 1);
 		}
 	}
 }
-
-void	sortlg_tab(char **tab)
-{
-	int len;
-
-	len = ft_ptrlen(tab);
-	quick_sort(tab, 0, len - 1, simul_log(len));
-}
-
-void	revsortlg_tab(char **tab)
-{
-	int len;
-
-	len = ft_ptrlen(tab);
-	rev_quick_sort(tab, 0, len - 1, simul_log(len));
-}
-

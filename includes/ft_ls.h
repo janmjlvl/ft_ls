@@ -46,4 +46,7 @@ char		**sort_last_acces(char *dir, char **tab);
 char		**r_sorttime_tab(char *dir, char **tab);
 char		**r_sortsize_tab(char *dir, char **tab);
 char		**r_sort_last_acces(char *dir, char **tab);
+
+int		simul_log(int n);
+void	rev_quick_sort(char **tab, int first, int last, int depth);
 #endif
