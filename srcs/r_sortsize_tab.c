@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sortsize.c                                         :+:      :+:    :+:   */
+/*   r_sortsize_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/16 12:42:30 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/18 15:12:06 by jlevieil         ###   ########.fr       */
+/*   Created: 2014/11/18 14:54:44 by jlevieil          #+#    #+#             */
+/*   Updated: 2014/11/18 15:12:02 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	while (1)
 	{
 		right--;
-		while (tmp[right] < pivot)
+		while (tmp[right] > pivot)
 			right--;
 		left++;
-		while (tmp[left] > pivot)
+		while (tmp[left] < pivot)
 			left++;
 		if (left < right)
 			swap(tab, tmp, left, right);
@@ -58,7 +58,7 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	quick_sort(tab, tmp, right + 1, end);
 }
 
-char			**sortsize_tab(char *dir, char **tab)
+char			**r_sortsize_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;

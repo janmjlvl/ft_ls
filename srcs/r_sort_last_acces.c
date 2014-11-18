@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sortsize.c                                         :+:      :+:    :+:   */
+/*   r_sort_last_acces.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/16 12:42:30 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/18 15:12:06 by jlevieil         ###   ########.fr       */
+/*   Created: 2014/11/18 14:54:20 by jlevieil          #+#    #+#             */
+/*   Updated: 2014/11/18 15:32:21 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft.h"
 #include "ft_ls.h"
 
-static void		swap(char **tab, int *tmp, int i, int j)
+static	void		swap(char **tab, int *tmp, int i, int j)
 {
 	int		i_tmp;
 	char	*tab_tmp;
@@ -30,7 +30,7 @@ static void		swap(char **tab, int *tmp, int i, int j)
 	tab[j] = tab_tmp;
 }
 
-static void		quick_sort(char **tab, int *tmp, int start, int end)
+static	void		quick_sort(char **tab, int *tmp, int start, int end)
 {
 	int pivot;
 	int left;
@@ -44,10 +44,10 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	while (1)
 	{
 		right--;
-		while (tmp[right] < pivot)
+		while (tmp[right] > pivot)
 			right--;
 		left++;
-		while (tmp[left] > pivot)
+		while (tmp[left] < pivot)
 			left++;
 		if (left < right)
 			swap(tab, tmp, left, right);
@@ -58,7 +58,7 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	quick_sort(tab, tmp, right + 1, end);
 }
 
-char			**sortsize_tab(char *dir, char **tab)
+char		**r_sort_last_acces(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
@@ -67,14 +67,14 @@ char			**sortsize_tab(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i);
+	tmp = (int*)malloc(sizeof(int) * i + 1);
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	while (tab[i] != '\0')
 	{
 		stat(ft_make_path(dir, tab[i]), &s_stat);
-		tmp[i] = s_stat.st_size;
+		tmp[i] = s_stat.st_atime;
 		i++;
 	}
 	quick_sort(tab, tmp, 0, i - 1);

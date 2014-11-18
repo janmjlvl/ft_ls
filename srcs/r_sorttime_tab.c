@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sortsize.c                                         :+:      :+:    :+:   */
+/*   r_sorttime_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/16 12:42:30 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/18 15:12:06 by jlevieil         ###   ########.fr       */
+/*   Created: 2014/11/18 14:55:22 by jlevieil          #+#    #+#             */
+/*   Updated: 2014/11/18 15:12:33 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <time.h>
 #include <sys/stat.h>
@@ -44,10 +45,10 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	while (1)
 	{
 		right--;
-		while (tmp[right] < pivot)
+		while (tmp[right] > pivot)
 			right--;
 		left++;
-		while (tmp[left] > pivot)
+		while (tmp[left] < pivot)
 			left++;
 		if (left < right)
 			swap(tab, tmp, left, right);
@@ -58,7 +59,7 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	quick_sort(tab, tmp, right + 1, end);
 }
 
-char			**sortsize_tab(char *dir, char **tab)
+char			**r_sorttime_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
@@ -67,14 +68,14 @@ char			**sortsize_tab(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i);
+	tmp = (int*)malloc(sizeof(int) * i + 1);
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	while (tab[i] != '\0')
 	{
 		stat(ft_make_path(dir, tab[i]), &s_stat);
-		tmp[i] = s_stat.st_size;
+		tmp[i] = s_stat.st_mtime;
 		i++;
 	}
 	quick_sort(tab, tmp, 0, i - 1);
