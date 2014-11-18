@@ -6,7 +6,7 @@
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 13:53:58 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/18 15:10:54 by jlevieil         ###   ########.fr       */
+/*   Updated: 2014/11/18 15:32:48 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
-#include "ft_ls"
+#include "ft_ls.h"
 
 static	void		swap(char **tab, int *tmp, int i, int j)
 {
