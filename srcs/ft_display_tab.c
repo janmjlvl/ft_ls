@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/17 15:21:38 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/18 10:16:04 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		ft_display_tab(char **tab, t_ls_options* opts)
 	if (opts->a == 0)
 		tab = ft_ls_striphidden(tab);
 	i = 0;
+	if (!*tab)
+		return ;
 	maxlen = ft_strlen(tab[0]);
 	while (tab[i] != NULL)
 	{
@@ -35,7 +37,7 @@ void		ft_display_tab(char **tab, t_ls_options* opts)
 		}
 		i++;
 	}
-	maxlen = maxlen + 4 - (maxlen % 4);
+	maxlen = maxlen + 8 - (maxlen % 8);
 	tablen = ft_ptrlen(tab);
 	colnbr = opts->termwidth / maxlen;
 	linenbr = tablen / colnbr;
