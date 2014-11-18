@@ -21,6 +21,7 @@ typedef	struct	s_ls_options
 	int		a;
 	int		l;
 	int		mr;
+	int		m;
 	int		r;
 	int		t;
 	int		termwidth;

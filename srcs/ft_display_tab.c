@@ -6,12 +6,24 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/18 10:28:54 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/18 11:52:53 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
+
+static void		display_stream(char **tab)
+{
+	while (*tab)
+	{
+		ft_putstr(*tab);
+		if (*(tab + 1))
+			ft_putstr(", ");
+		tab++;
+	}
+	ft_putchar('\n');
+}
 
 static void		display_columns(char **tab, int termwidth)
 {
@@ -77,7 +89,9 @@ void		ft_display_tab(char **tab, t_ls_options* opts)
 {
 	if (opts->a == 0)
 		tab = ft_ls_striphidden(tab);
-	if (opts->one == 1)
+	if (opts->m)
+		display_stream(tab);
+	else if (opts->one == 1)
 		display_one(tab);
 	else
 		display_columns(tab, opts->termwidth);
