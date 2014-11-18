@@ -6,7 +6,7 @@
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:28:38 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/16 14:34:05 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/18 12:13:59 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+#include "ft_ls.h"
 
 static void		swap(char **tab, int *tmp, int i, int j)
 {
@@ -57,7 +58,7 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	quick_sort(tab, tmp, right + 1, end);
 }
 
-char			**sorttime_tab(char **tab)
+char			**sorttime_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
@@ -72,7 +73,7 @@ char			**sorttime_tab(char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		stat(tab[i], &s_stat);
+		stat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_mtime;
 		i++;
 	}

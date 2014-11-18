@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/16 15:11:40 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/18 12:19:54 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <sys/stat.h>
 
-char	*make_path(char *dir, char *ret)
+char	*ft_make_path(char *dir, char *ret)
 {
 	char	*new;
 
@@ -43,17 +43,25 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
 	}
 	ret = ft_list_dir(dir);
 	if (opts->r == 0)
-		sortlg_tab(ret);
+	{
+		if (opts->t == 1)
+			sorttime_tab(dir, ret);
+		else if (opts->ms == 1)
+			sortsize_tab(dir, ret);
+		else
+			sortlg_tab(ret);
+	}
 	else if (opts->r == 1)
+	{
 		revsortlg_tab(ret);
-	//ft_display_tab va reinverser la suite si -r est activer
+	}
 	ft_display_tab(ret, opts);
 	len = ft_ptrlen(ret);
 	while (i < len)
 	{
 		if (!(ret[i][0] == '.' && ((ret[i][1] == '.' && ret[i][2] == '\0')
 														|| ret[i][1] == '\0')))
-			ft_bigr(opts, make_path(dir, ret[i]), 0, 0);
+			ft_bigr(opts, ft_make_path(dir, ret[i]), 0, 0);
 		i++;
 	}
 }

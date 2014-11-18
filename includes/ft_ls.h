@@ -21,6 +21,7 @@ typedef	struct	s_ls_options
 	int		a;
 	int		l;
 	int		mr;
+	int		ms;
 	int		m;
 	int		r;
 	int		t;
@@ -33,11 +34,12 @@ int			ft_ptrlen(char **tab);
 void		sortlg_tab(char	**tab);
 int			splitnames(char **tab, char ***files, char ***dir);
 void		ft_redirec(t_ls_options *opts);
-char		**sorttime_tab(char **tab);
+char		**sorttime_tab(char *dir, char **tab);
 void		revsortlg_tab(char **tab);
 void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts);
 void		ft_bigr(t_ls_options *opts, char *dir, int i, int first);
-char		**sortsize_tab(char **tab);
-char **ft_ls_striphidden(char **tab);
+char		**sortsize_tab(char *dir, char **tab);
+char		**ft_ls_striphidden(char **tab);
+char		*ft_make_path(char *dir, char *ret);
 
 #endif
