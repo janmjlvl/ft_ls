@@ -6,7 +6,7 @@
 #    By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/14 10:03:13 by vle-guen          #+#    #+#              #
-#    Updated: 2014/11/16 11:49:08 by nmeier           ###   ########.fr        #
+#    Updated: 2014/11/18 10:22:19 by nmeier           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,8 +18,8 @@ LIBFT = libft/libft.a
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT)
-	gcc -o $@ $(CFLAGS) $(OBJS) $^
+$(NAME) : $(LIBFT) $(OBJS)
+	gcc -o $@ $(CFLAGS) $^
 
 $(LIBFT) : $(OBJS)
 	$(MAKE) -C libft

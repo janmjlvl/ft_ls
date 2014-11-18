@@ -16,6 +16,8 @@ typedef	struct	s_ls_options
 {
 	char	**names;
 	int		files_nbr;
+	int		one;
+	int		mc;
 	int		a;
 	int		l;
 	int		mr;
