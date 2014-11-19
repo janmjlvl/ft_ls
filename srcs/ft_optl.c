@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/19 12:27:14 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 17:22:06 by vle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,56 @@
 #include <uuid/uuid.h>
 #include <stdlib.h>
 #include <grp.h>
+#include <sys/xattr.h>
+
+int	test_listxattr(char *dir, char **files)
+{
+	char *test;
+	int	i;
+	ssize_t	k;
+
+	i = 0;
+	k = 0;
+	test = (char *)malloc(sizeof(char) * 256);
+	if (!test)
+		return (-1);
+	while (files[i] != NULL)
+	{
+		k = listxattr(ft_make_path(dir, files[i]),test, 255, XATTR_SHOWCOMPRESSION);
+		if (k == -1)
+		{
+			ft_putstr("erreur\n");
+			return (-1);
+		}
+		ft_putstr(test);
+		ft_putchar('\n');
+		ft_putnbr(k);
+		ft_putchar('\n');
+		i++;
+	}
+	return (k);
+}
 
 int	display_type(char *path)
 {
 	int status;
 	struct stat buf;
 
-	if((status = stat(path, &buf)) == -1)
+	if((status = lstat(path, &buf)) == -1)
 	   return (-1);
-	if ((buf.st_mode & S_IFIFO))
+	if ((buf.st_mode & S_IFMT) == S_IFIFO)
 		ft_putchar('p');
-	else if ((buf.st_mode & S_IFCHR))
-		ft_putchar('c');
-	else if ((buf.st_mode & S_IFDIR))
-		ft_putchar('d');
-	else if ((buf.st_mode & S_IFBLK))
-		ft_putchar('b');
-	else if ((buf.st_mode & S_IFREG))
+	else if ((buf.st_mode & S_IFMT) == S_IFREG)
 		ft_putchar('-');
-	else if ((buf.st_mode & S_IFLNK))
+	else if ((buf.st_mode & S_IFMT) == S_IFLNK)
 		ft_putchar('l');
-	else if ((buf.st_mode & S_IFSOCK))
+	else if ((buf.st_mode & S_IFMT) == S_IFCHR)
+		ft_putchar('c');
+	else if ((buf.st_mode & S_IFMT) == S_IFDIR)
+		ft_putchar('d');
+	else if ((buf.st_mode & S_IFMT) == S_IFBLK)
+		ft_putchar('b');
+	else if ((buf.st_mode & S_IFMT) == S_IFSOCK)
 		ft_putchar('s');
 	else
 		return (-1);
@@ -54,23 +83,18 @@ int	display_chmod1(char *path)
 
 	if((status = stat(path, &buf)) == -1)
 	   return (-1);
-	if(!(buf.st_mode & S_IRWXU))
-		ft_putstr("rwx");
-	else 
-	{
-		if ((buf.st_mode & S_IRUSR))
-			ft_putchar('r');
-		else
-			ft_putchar('-');
-		if ((buf.st_mode & S_IWUSR))
-			ft_putchar('w');
-		else
-			ft_putchar('-');
-		if ((buf.st_mode & S_IXUSR))
-			ft_putchar('x');
-		else
-			ft_putchar('-');
-	}
+	if ((buf.st_mode & S_IRUSR))
+		ft_putchar('r');
+	else
+		ft_putchar('-');
+	if ((buf.st_mode & S_IWUSR))
+		ft_putchar('w');	
+	else
+		ft_putchar('-');
+	if ((buf.st_mode & S_IXUSR))
+		ft_putchar('x');
+	else
+		ft_putchar('-');
 	return (0);
 }
 
@@ -81,23 +105,18 @@ int	display_chmod2(char *path)
 
 	if((status = stat(path, &buf)) == -1)
 	   return (-1);
-	if(!(buf.st_mode & S_IRWXG))
-		ft_putstr("rwx");
-	else 
-	{
-		if ((buf.st_mode & S_IRGRP))
-			ft_putchar('r');
-		else
-			ft_putchar('-');
-		if ((buf.st_mode & S_IWGRP))
-			ft_putchar('w');
-		else
-			ft_putchar('-');
-		if ((buf.st_mode & S_IXGRP))
-			ft_putchar('x');
-		else
-			ft_putchar('-');
-	}
+	if ((buf.st_mode & S_IRGRP))
+		ft_putchar('r');
+	else
+		ft_putchar('-');
+	if ((buf.st_mode & S_IWGRP))
+		ft_putchar('w');
+	else
+		ft_putchar('-');
+	if ((buf.st_mode & S_IXGRP))
+		ft_putchar('x');
+	else
+		ft_putchar('-');
 	return (0);
 }
 
@@ -108,23 +127,18 @@ int	display_chmod3(char *path)
 
 	if((status = stat(path, &buf)) == -1)
 	   return (-1);
-	if(!(buf.st_mode & S_IRWXO))
-		ft_putstr("rwx");
-	else 
-	{
-		if ((buf.st_mode & S_IROTH))
-			ft_putchar('r');
-		else
-			ft_putchar('-');
-		if ((buf.st_mode & S_IWOTH))
-			ft_putchar('w');
-		else
-			ft_putchar('-');
-		if ((buf.st_mode & S_IXOTH))
-			ft_putchar('x');
-		else
-			ft_putchar('-');
-	}
+	if ((buf.st_mode & S_IROTH))
+		ft_putchar('r');
+	else
+		ft_putchar('-');
+	if ((buf.st_mode & S_IWOTH))
+		ft_putchar('w');
+	else
+		ft_putchar('-');
+	if ((buf.st_mode & S_IXOTH))
+		ft_putchar('x');
+	else
+		ft_putchar('-');
 	return (0);
 }
 
@@ -165,8 +179,6 @@ int		find_maxlength(char *dir, char **path, int flag)
 			k = max(k, find_intlength(buf.st_nlink));
 		if (flag == 1)
 			k = max(k, find_intlength(buf.st_size));
-//		if (flag == 2)
-//		k = max(k, find_intlength(buf.remplir));
 		i++;
 	}
 	k = k + 2;
@@ -245,6 +257,28 @@ char	*display_modiftime(char *s)
 	return (0);
 }
 
+int		display_total(char *dir, char **files)
+{
+	int	status;
+	struct stat	buf;
+	int	nb_blocks;
+	int	i;
+
+	i = 0;
+	nb_blocks = 0;
+	while (files[i] != NULL)
+	{
+		if ((status = lstat(ft_make_path(dir, files[i]), &buf)) == -1)
+			return (-1);
+		nb_blocks = nb_blocks + buf.st_blocks;
+		i++;
+	}
+		ft_putstr("total ");
+		ft_putnbr(nb_blocks);
+		ft_putchar('\n');
+	return (0);
+}
+
 int		ft_optl(char *dir, char **files)
 {
 	int			status;
@@ -256,7 +290,9 @@ int		ft_optl(char *dir, char **files)
 	int tab[4];
 	char *pathtmp;
 
+	test_listxattr(dir, files);
 	i = 0;
+	display_total(dir, files);
 	tab[0] = find_maxlength(dir, files, 0);
 	tab[1] = find_maxlength(dir, files, 1);
 	tab[2] = find_maxcharlength(dir, files);
