@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/19 11:54:27 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/19 12:13:48 by vle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,11 +261,21 @@ int		ft_optl(char **path)
 	while (path[i] != NULL)
 	{
 		if ((status = stat(path[i], &buf)) == -1)
+		{
+			ft_putstr("error stat");
 			return (-1);
-		display_type(path[i]);
-		display_chmod1(path[i]);
-		display_chmod2(path[i]);
-		display_chmod3(path[i]);
+		}
+		if ((display_type(path[i])) == -1)
+		{
+			ft_putstr("error display_type");
+			return (-1);
+		}
+		if ((display_chmod1(path[i])) == -1)
+			ft_putstr("error chmod1");
+		if ((display_chmod2(path[i])) == -1)
+			ft_putstr("error chmod2");
+		if ((display_chmod3(path[i])) == -1)
+			ft_putstr("error chmod3");
 		display_spacingint(buf.st_nlink, tab[0]);
 		ft_putnbr(buf.st_nlink);
 		ft_putchar(' ');
@@ -276,7 +286,6 @@ int		ft_optl(char **path)
 		grp = getgrgid(buf.st_gid);
 		result = ft_strdup(grp->gr_name);
 		ft_putstr(result);
-		ft_putnbr(buf.st_gid);
 		display_spacingint(buf.st_size, tab[1]);
 		ft_putnbr(buf.st_size);
 		ft_putchar(' ');
@@ -289,12 +298,12 @@ int		ft_optl(char **path)
 	return (0);
 }
 
-/*int		main(void)
+int		main(void)
 {
 	int		status;
-	char **path = ft_list_dir(".");
+	char **path = ft_list_dir("/dev");
 
 	if ((status = ft_optl(path)) == -1)
 		return (-1);
 	return (0);
-}*/
+}
