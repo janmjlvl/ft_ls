@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/18 12:02:08 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 11:05:12 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,12 @@ static void		display_one(char **tab)
 void		ft_display_tab(char **tab, t_ls_options* opts)
 {
 	if (opts->a == 0)
-		tab = ft_ls_striphidden(tab);
+	{
+		if (opts->ma == 0)
+			tab = ft_ls_striphidden(tab);
+		else
+			tab = ft_ls_stripdot(tab);
+	}
 	if (opts->m)
 		display_stream(tab);
 	else if (opts->one == 1)

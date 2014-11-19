@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/18 12:18:14 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 10:56:59 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		find_options(t_ls_options *opt, char *s)
 			opt->r = 1;
 		else if (*s == 'R')
 			opt->mr = 1;
+		else if (*s == 'A')
+			opt->ma = 1;
 		else if (*s == 'l')
 		{
 			opt->l = 1;
@@ -67,7 +69,7 @@ int		find_options(t_ls_options *opt, char *s)
 			ft_putstr("ls: illegal option -- ");
 			ft_putchar(*s);
 			ft_putchar('\n');
-			return (-1);
+			exit (-1);
 		}
 		s++;
 	}

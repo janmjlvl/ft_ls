@@ -19,6 +19,7 @@ typedef	struct	s_ls_options
 	int		one;
 	int		mc;
 	int		a;
+	int		ma;
 	int		l;
 	int		mr;
 	int		ms;
@@ -42,7 +43,7 @@ char		**sortsize_tab(char *dir, char **tab);
 char		**ft_ls_striphidden(char **tab);
 char		*ft_make_path(char *dir, char *ret);
 char		**sort_last_acces(char *dir, char **tab);
-
+char		**ft_ls_stripdot(char **tab);
 char		**r_sorttime_tab(char *dir, char **tab);
 char		**r_sortsize_tab(char *dir, char **tab);
 char		**r_sort_last_acces(char *dir, char **tab);
