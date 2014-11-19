@@ -26,6 +26,7 @@ typedef	struct	s_ls_options
 	int		m;
 	int		r;
 	int		t;
+	int		u;
 	int		termwidth;
 }				t_ls_options;
 
@@ -47,7 +48,7 @@ char		**ft_ls_stripdot(char **tab);
 char		**r_sorttime_tab(char *dir, char **tab);
 char		**r_sortsize_tab(char *dir, char **tab);
 char		**r_sort_last_acces(char *dir, char **tab);
-
-int		simul_log(int n);
-void	rev_quick_sort(char **tab, int first, int last, int depth);
+int			ft_optl(char **path)
+int			simul_log(int n);
+void		rev_quick_sort(char **tab, int first, int last, int depth);
 #endif
