@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/19 11:13:04 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 11:54:27 by vle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ int		ft_optl(char **path)
 	int			status;
 	struct stat	buf;
 	struct passwd	*pwd;
+	struct group	*grp;
 	char		*result;
 	int i;
 	int tab[4];
@@ -272,9 +273,9 @@ int		ft_optl(char **path)
 		result = ft_strdup(pwd->pw_name);
 		ft_putstr(result);
 		display_spaceuid(result, tab[2]);
-//		pwd = getgrgid(buf.st_gid);
-//		result = ft_strdup(pwd->pw_name);
-//		ft_putstr(result);
+		grp = getgrgid(buf.st_gid);
+		result = ft_strdup(grp->gr_name);
+		ft_putstr(result);
 		ft_putnbr(buf.st_gid);
 		display_spacingint(buf.st_size, tab[1]);
 		ft_putnbr(buf.st_size);
