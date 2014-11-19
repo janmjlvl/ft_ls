@@ -30,7 +30,7 @@ typedef	struct	s_ls_options
 	int		termwidth;
 }				t_ls_options;
 
-void		ft_display_tab(char **tab, t_ls_options* opts);
+void		ft_display_tab(char *dir, char **tab, t_ls_options* opts);
 char		**ft_list_dir(char *dirname);
 int			ft_ptrlen(char **tab);
 void		sortlg_tab(char	**tab);
@@ -48,7 +48,7 @@ char		**ft_ls_stripdot(char **tab);
 char		**r_sorttime_tab(char *dir, char **tab);
 char		**r_sortsize_tab(char *dir, char **tab);
 char		**r_sort_last_acces(char *dir, char **tab);
-int			ft_optl(char **path);
+int			ft_optl(char *dir, char **tab);
 int			simul_log(int n);
 void		rev_quick_sort(char **tab, int first, int last, int depth);
 #endif

@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/19 12:13:48 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/19 12:27:14 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		max(int a, int b)
 	return (b);
 }
 
-int		find_maxlength(char **path, int flag)
+int		find_maxlength(char *dir, char **path, int flag)
 {
 	int			k;
 	int			status;
@@ -159,7 +159,7 @@ int		find_maxlength(char **path, int flag)
 	k = 1;
 	while (path[i] != NULL)
 	{
-		if ((status = stat(path[i], &buf)) == -1)
+		if ((status = stat(ft_make_path(dir, path[i]), &buf)) == -1)
 			return (-1);
 		if (flag == 0)
 			k = max(k, find_intlength(buf.st_nlink));
@@ -173,7 +173,7 @@ int		find_maxlength(char **path, int flag)
 	return (k);
 }
 
-int		find_maxcharlength(char **path)
+int		find_maxcharlength(char *dir, char **path)
 {
 	int	k;
 	int i;
@@ -184,6 +184,7 @@ int		find_maxcharlength(char **path)
 	k = 1;
 	while (path[i] != NULL)
 	{
+		stat(ft_make_path(dir, path[i]), &buf);
 		pwd = getpwuid(buf.st_uid);
 		k = max(k, ft_strlen(ft_strdup(pwd->pw_name)));
 		i++;
@@ -244,7 +245,7 @@ char	*display_modiftime(char *s)
 	return (0);
 }
 
-int		ft_optl(char **path)
+int		ft_optl(char *dir, char **files)
 {
 	int			status;
 	struct stat	buf;
@@ -253,28 +254,30 @@ int		ft_optl(char **path)
 	char		*result;
 	int i;
 	int tab[4];
+	char *pathtmp;
 
 	i = 0;
-	tab[0] = find_maxlength(path, 0);
-	tab[1] = find_maxlength(path, 1);
-	tab[2] = find_maxcharlength(path);
-	while (path[i] != NULL)
+	tab[0] = find_maxlength(dir, files, 0);
+	tab[1] = find_maxlength(dir, files, 1);
+	tab[2] = find_maxcharlength(dir, files);
+	while (files[i] != NULL)
 	{
-		if ((status = stat(path[i], &buf)) == -1)
+		pathtmp = ft_make_path(dir, files[i]);
+		if ((status = stat(pathtmp, &buf)) == -1)
 		{
 			ft_putstr("error stat");
 			return (-1);
 		}
-		if ((display_type(path[i])) == -1)
+		if ((display_type(pathtmp)) == -1)
 		{
 			ft_putstr("error display_type");
 			return (-1);
 		}
-		if ((display_chmod1(path[i])) == -1)
+		if ((display_chmod1(pathtmp)) == -1)
 			ft_putstr("error chmod1");
-		if ((display_chmod2(path[i])) == -1)
+		if ((display_chmod2(pathtmp)) == -1)
 			ft_putstr("error chmod2");
-		if ((display_chmod3(path[i])) == -1)
+		if ((display_chmod3(pathtmp)) == -1)
 			ft_putstr("error chmod3");
 		display_spacingint(buf.st_nlink, tab[0]);
 		ft_putnbr(buf.st_nlink);
@@ -291,14 +294,15 @@ int		ft_optl(char **path)
 		ft_putchar(' ');
 		ft_putstr(display_modiftime(ctime(&(buf.st_mtime))));
 		ft_putchar(' ');
-		ft_putstr(path[i]);
+		ft_putstr(files[i]);
 		ft_putchar('\n');
+		free(pathtmp);
 		i++;
 	}
 	return (0);
 }
 
-int		main(void)
+/*int		main(void)
 {
 	int		status;
 	char **path = ft_list_dir("/dev");
@@ -306,4 +310,4 @@ int		main(void)
 	if ((status = ft_optl(path)) == -1)
 		return (-1);
 	return (0);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/19 11:56:16 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 12:29:04 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
 	{
 		revsortlg_tab(ret);
 	}
-	ft_display_tab(ret, opts);
+	ft_display_tab(dir, ret, opts);
 	len = ft_ptrlen(ret);
 	while (i < len)
 	{

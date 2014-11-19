@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/19 11:15:46 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 12:28:27 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_redirec(t_ls_options *opts)
 	if (*files)
 	{
 		opt_sort(opts, ".", files);
-		ft_display_tab(files, opts);
+		ft_display_tab(".", files, opts);
 		if (*dir)
 			ft_putchar('\n');
 	}
@@ -80,7 +80,7 @@ void	ft_redirec(t_ls_options *opts)
 			}
 			ret = ft_list_dir(dir[i]);
 			opt_sort(opts, dir[i], ret);
-			ft_display_tab(ret, opts);
+			ft_display_tab(dir[i], ret, opts);
 			if (dir[i+1] != NULL)
 				ft_putchar('\n');
 			i++;

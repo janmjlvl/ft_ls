@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/19 11:58:19 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 13:00:01 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		display_columns(char **tab, int termwidth)
 {
 	int i;
 	int j;
-	//int k;
+	int k;
 	int tmp;
 	int maxlen;
 	int colnbr;
@@ -64,13 +64,15 @@ static void		display_columns(char **tab, int termwidth)
 			ft_putstr(tab[(i * linenbr) + j]);
 			tmp = ft_strlen(tab[(i * linenbr) + j]);
 			if (i + 1 < colnbr && ((i + 1) * linenbr) + j < tablen)
-				ft_putchar('\t');
-			/*k = 0;
-			while (k < maxlen - tmp)
+				//ft_putchar('\t');
 			{
-				ft_putchar(' ');
-				k++;
-			}*/
+				k = 0;
+				while (k < maxlen - tmp)
+				{
+					ft_putchar(' ');
+					k++;
+				}
+			}
 			i++;
 		}
 		ft_putchar('\n');
@@ -87,7 +89,7 @@ static void		display_one(char **tab)
 	}
 }
 
-void		ft_display_tab(char **tab, t_ls_options* opts)
+void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
 {
 	if (opts->a == 0)
 	{
@@ -100,6 +102,8 @@ void		ft_display_tab(char **tab, t_ls_options* opts)
 		display_stream(tab);
 	else if (opts->one == 1)
 		display_one(tab);
+	else if (opts->l == 1)
+		ft_optl(dir, tab);
 	else
 		display_columns(tab, opts->termwidth);
 }
