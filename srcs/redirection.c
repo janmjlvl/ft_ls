@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/19 12:28:27 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 14:31:07 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,27 @@
 
 void	opt_sort(t_ls_options *opts, char *path, char **tab)
 {
-	if (opts->ms)
+	if (opts->r == 0)
 	{
-		if (opts->r)
-			r_sortsize_tab(path, tab);
-		else
+		if (opts->ms == 1)
 			sortsize_tab(path, tab);
-	}
-	else if (opts->t)
-	{
-		if (opts->r)
-			r_sorttime_tab(path, tab);
-		else
+		if (opts->t == 1)
 			sorttime_tab(path, tab);
-	}
-	else if (opts->u)
-	{
-		if (opts->r)
-			r_sort_last_acces(path, tab);
-		else
+		if (opts->u == 1)
 			sort_last_acces(path, tab);
-	}
-	else
-	{
-		if (opts->r)
-			revsortlg_tab(tab);
 		else
 			sortlg_tab(tab);
+	}
+	if (opts-> r == 1)
+	{
+		if (opts->ms == 1)
+			r_sortsize_tab(path, tab);
+		if (opts->t == 1)
+			r_sorttime_tab(path, tab);
+		if (opts->u == 1)
+			r_sort_last_acces(path, tab);
+		else
+			revsortlg_tab(tab);
 	}
 }
 
