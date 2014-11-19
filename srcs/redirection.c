@@ -6,13 +6,38 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/18 12:20:02 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/19 10:51:55 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
 #include <stdlib.h>
+
+void	opt_sort(t_ls_options *opts, char *path, char **tab)
+{
+	if (opts->ms)
+	{
+		if (opts->r)
+			r_sortsize_tab(path, tab);
+		else
+			sortsize_tab(path, tab);
+	}
+	else if (opts->t)
+	{
+		if (opts->r)
+			r_sorttime_tab(path, tab);
+		else
+			sorttime_tab(path, tab);
+	}
+	else
+	{
+		if (opts->r)
+			revsortlg_tab(tab);
+		else
+			sortlg_tab(tab);
+	}
+}
 
 void	ft_redirec(t_ls_options *opts)
 {
@@ -25,7 +50,7 @@ void	ft_redirec(t_ls_options *opts)
 		return ;
 	if (*files)
 	{
-		sortlg_tab(files);
+		opt_sort(opts, ".", files);
 		ft_display_tab(files, opts);
 		if (*dir)
 			ft_putchar('\n');
@@ -33,10 +58,7 @@ void	ft_redirec(t_ls_options *opts)
 	if (*dir)
 	{
 		i = 0;
-		if (opts->r)
-			revsortlg_tab(dir);
-		else
-			sortlg_tab(dir);
+		opt_sort(opts, ".", dir);
 		while (dir[i] != NULL && opts->mr == 1)
 		{
 			ft_bigr(opts, dir[i], 0, 1);
@@ -50,7 +72,7 @@ void	ft_redirec(t_ls_options *opts)
 				ft_putendl(":");
 			}
 			ret = ft_list_dir(dir[i]);
-			sortlg_tab(ret);
+			opt_sort(opts, dir[i], ret);
 			ft_display_tab(ret, opts);
 			if (dir[i+1] != NULL)
 				ft_putchar('\n');

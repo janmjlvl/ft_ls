@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/18 15:03:44 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/19 10:43:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ int		ft_optl(char **path)
 	return (0);
 }
 
-int		main(void)
+/*int		main(void)
 {
 	int		status;
 	char **path = ft_list_dir(".");
@@ -296,4 +296,4 @@ int		main(void)
 	if ((status = ft_optl(path)) == -1)
 		return (-1);
 	return (0);
-}
+}*/
