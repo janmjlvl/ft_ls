@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 15:27:54 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 16:05:38 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ void	ft_redirec(t_ls_options *opts)
 	char	**ret;
 	int		i;
 
-	if (splitnames(opts->names, &files, &dir) == -1)
+	if (opts->d == 1)
+	{
+		files = opts->names;
+		dir = malloc(sizeof(char*) * 1);
+		*dir = NULL;
+	}
+	else if (splitnames(opts->names, &files, &dir) == -1)
 		return ;
 	if (*files)
 	{

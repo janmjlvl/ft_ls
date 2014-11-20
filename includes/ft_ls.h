@@ -25,6 +25,7 @@ typedef	struct	s_ls_options
 	int		g;
 	int		mr;
 	int		ms;
+	int		d;
 	int		m;
 	int		r;
 	int		t;
