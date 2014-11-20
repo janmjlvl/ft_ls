@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/20 14:36:28 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 15:37:01 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
 	else if (opts->one == 1)
 		display_one(tab);
 	else if (opts->l == 1)
-		ft_optl(dir, tab);
+		ft_optl(dir, tab, opts);
 	else
 		display_columns(tab, opts->termwidth);
 }

@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/20 13:59:47 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 15:35:52 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ int		display_total(char *dir, char **files)
 	return (0);
 }
 
-int		ft_optl(char *dir, char **files)
+int		ft_optl(char *dir, char **files, t_ls_options *opts)
 {
 	int			status;
 	struct stat	buf;
@@ -318,10 +318,13 @@ int		ft_optl(char *dir, char **files)
 		display_spacingint(buf.st_nlink, tab[0]);
 		ft_putnbr(buf.st_nlink);
 		ft_putchar(' ');
-		pwd = getpwuid(buf.st_uid);
-		result = ft_strdup(pwd->pw_name);
-		ft_putstr(result);
-		display_spaceuid(result, tab[2]);
+		if (opts->g == 0)
+		{
+			pwd = getpwuid(buf.st_uid);
+			result = ft_strdup(pwd->pw_name);
+			ft_putstr(result);
+			display_spaceuid(result, tab[2]);
+		}
 		grp = getgrgid(buf.st_gid);
 		result = ft_strdup(grp->gr_name);
 		ft_putstr(result);
