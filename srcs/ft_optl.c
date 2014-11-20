@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/20 15:35:52 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 16:18:13 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,8 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 
 	//test_listxattr(dir, files);
 	i = 0;
-	display_total(dir, files);
+	if (opts->d == 0)
+		display_total(dir, files);
 	tab[0] = find_maxlength(dir, files, 0);
 	tab[1] = find_maxlength(dir, files, 1);
 	tab[2] = find_maxcharlength(dir, files);
