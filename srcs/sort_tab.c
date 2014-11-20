@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 19:58:03 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/20 20:18:22 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,6 @@ static void	heap_sort(char **tab, int first, int size)
 		create_stack(tab, first, i);
 		i--;
 	}
-}
-
-int		simul_log(int n)
-{
-	int	i;
-
-	i = 1;
-	while (n > 9)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i * 3);
 }
 
 static int		split_sort(char **tab, int first, int last)
