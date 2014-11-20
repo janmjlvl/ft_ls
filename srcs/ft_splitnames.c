@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:19:24 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/20 13:53:43 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 15:23:37 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int		*def_items(char **tab, int *dex)
 			ft_putstr_fd("ls: ", 2);
 			ft_putstr_fd(tab[i], 2);
 			ft_putendl_fd(": No such file or directory", 2);
-			dex[0] = -1;
-			return (dex);
 		}
 		if (S_ISDIR(st_buf.st_mode))
 			dex[0]++;
@@ -73,12 +71,12 @@ int		splitnames(char **tab, char ***files, char ***dir)
 		dex[3] = stat(tab[dex[2]], &st_buf);
 		if (dex[3])
 		{
-			ft_putstr_fd("ls: ", 2);
+			/*ft_putstr_fd("ls: ", 2);
 			ft_putstr_fd(tab[dex[2]], 2);
 			ft_putendl_fd(": No such file or directory", 2);
-			return(-1);
+			return(-1);*/
 		}
-		if (S_ISDIR(st_buf.st_mode))
+		else if (S_ISDIR(st_buf.st_mode))
 		{
 			(*dir)[dex[0]] = tab[dex[2]];
 			dex[0] = dex[0] + 1;

@@ -6,11 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2014/11/20 15:13:44 by jabadie          ###   ########.fr       */
-=======
-/*   Updated: 2014/11/20 13:56:22 by nmeier           ###   ########.fr       */
->>>>>>> 29377fe9a437ee4b9ee34826ab4637b9403329ad
+/*   Updated: 2014/11/20 15:27:54 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +16,8 @@
 
 void	opt_sort(t_ls_options *opts, char *path, char **tab)
 {
+	if (opts->f)
+		return ;
 	if (opts->r == 0)
 	{
 		if (opts->ms == 1)
@@ -71,7 +69,7 @@ void	ft_redirec(t_ls_options *opts)
 		}
 		while (dir[i] != NULL)
 		{
-			if (*files || dir[1] != NULL)
+			if (*files || dir[1] != NULL || opts->files_nbr > 1)
 			{
 				ft_putstr(dir[i]);
 				ft_putendl(":");

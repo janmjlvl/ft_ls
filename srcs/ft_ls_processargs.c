@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/20 12:52:58 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 15:28:20 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int		find_options(t_ls_options *opt, char *s)
 	{
 		if (*s == 'a')
 			opt->a = 1;
+		else if (*s == 'f')
+		{
+			opt->f = 1;
+			opt->a = 1;
+		}
 		else if (*s == 'r')
 			opt->r = 1;
 		else if (*s == 'R')
