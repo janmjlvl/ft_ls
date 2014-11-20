@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 15:55:08 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 18:59:27 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	insertion_sort(char **tab, int first, int last)
+static void	insertion_sort(char **tab, int first, int last)
 {
 	int		i;
 	int		i2;
 	char	*tmp;
 
-	i = first;
+	i = first + 1;
 	while (i <= last)
 	{
 		i2 = i;
 		tmp = tab[i];
-		while (i2 - 1 >= 0 && ft_strcmp(tmp, tab[i2 - 1]) < 0)
+		while (i2 - 1 >= first && ft_strcmp(tmp, tab[i2 - 1]) < 0)
 		{
 			tab[i2] = tab[i2 - 1];
 			i2--;
@@ -36,7 +36,7 @@ void	insertion_sort(char **tab, int first, int last)
 	}
 }
 
-void	create_stack(char **tab, int noeud, int size)
+static void	create_stack(char **tab, int noeud, int size)
 {
 	char	*tmp;
 	int		j;
@@ -59,7 +59,7 @@ void	create_stack(char **tab, int noeud, int size)
 	}
 }
 
-void	heap_sort(char **tab, int first, int size)
+static void	heap_sort(char **tab, int first, int size)
 {
 	int		i;
 	char	*tmp;
@@ -94,7 +94,7 @@ int		simul_log(int n)
 	return (i * 3);
 }
 
-int		split_sort(char **tab, int first, int last)
+static int		split_sort(char **tab, int first, int last)
 {
 	int		i;
 	int		j;
@@ -122,7 +122,7 @@ int		split_sort(char **tab, int first, int last)
 	tmp = tab[key];
 	tab[key] = tab[i];
 	tab[i] = tmp;
-	return (key);
+	return (i);
 }
 
 void	all_quick_sort(char **tab, int first, int last, int depth)
@@ -133,7 +133,7 @@ void	all_quick_sort(char **tab, int first, int last, int depth)
 	{
 		if (last - first <= 15)
 			insertion_sort(tab, first, last);
-		if (depth == 0)
+		else if (depth == 0)
 			heap_sort(tab, first, last + 1);
 		else
 		{

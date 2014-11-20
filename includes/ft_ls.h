@@ -56,5 +56,10 @@ int			simul_log(int n);
 void		all_quick_sort(char **tab, int first, int last, int depth);
 void		rev_quick_sort(char **tab, int first, int last, int depth);
 void		opt_sort(t_ls_options *opts, char *path, char **tab);
+void		swap(char **tab, int *tmp, int i, int j);
+void		int_quick_sort(char **tab, int *tmp, int start, int end);
+void		r_int_quick_sort(char **tab, int *tmp, int start, int end);
+void		sortlg_after(char **tab, int *tmp);
+void		r_sortlg_after(char **tab, int *tmp);
 
 #endif

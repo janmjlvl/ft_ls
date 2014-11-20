@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 16:36:38 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/18 17:03:45 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/20 18:22:00 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	rev_insertion_sort(char **tab, int first, int last)
 	int		i2;
 	char	*tmp;
 
-	i = first;
+	i = first + 1;
 	while (i <= last)
 	{
 		i2 = i;
 		tmp = tab[i];
-		while (i2 - 1 >= 0 && ft_strcmp(tmp, tab[i2 - 1]) > 0)
+		while (i2 - 1 >= first && ft_strcmp(tmp, tab[i2 - 1]) > 0)
 		{
 			tab[i2] = tab[i2 - 1];
 			i2--;
@@ -118,7 +118,7 @@ void	rev_quick_sort(char **tab, int first, int last, int depth)
 	{
 		if (last - first <= 15)
 			rev_insertion_sort(tab, first, last);
-		if (depth == 0)
+		else if (depth == 0)
 			rev_heap_sort(tab, first, last + 1);
 		else
 		{
