@@ -6,7 +6,7 @@
 /*   By: jlevieil <jlevieil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:28:38 by jlevieil          #+#    #+#             */
-/*   Updated: 2014/11/20 15:37:50 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/20 15:54:17 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ static void		quick_sort(char **tab, int *tmp, int start, int end)
 	quick_sort(tab, tmp, right + 1, end);
 }
 
-void			sortlg_after(char **tab, char *tmp)
+void			sortlg_after(char **tab, int *tmp)
 {
 	int	i;
 	int	start;
 	int	len;
 	int	first;
 
-	i = 1
+	i = 1;
 	while (tab[i] != NULL)
 	{
 		len = 0;
@@ -76,7 +76,7 @@ void			sortlg_after(char **tab, char *tmp)
 				start = i - 1;
 			len++;
 			first = 0;
-			quick_sort(tab, start, start + len, simul_log(len));
+			all_quick_sort(tab, start, start + len, simul_log(len));
 			i++;
 		}
 		if (tab[i] == NULL)
