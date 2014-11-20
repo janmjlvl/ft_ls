@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 15:24:38 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 15:27:54 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void	opt_sort(t_ls_options *opts, char *path, char **tab)
 {
+	if (opts->f)
+		return ;
 	if (opts->r == 0)
 	{
 		if (opts->ms == 1)
