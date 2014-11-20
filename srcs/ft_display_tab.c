@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/19 13:00:01 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 12:54:57 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static void		display_columns(char **tab, int termwidth)
 				k = 0;
 				while (k < maxlen - tmp)
 				{
-					ft_putchar(' ');
-					k++;
+					ft_putchar('\t');
+					k = k + 8 - (k % 8);
 				}
 			}
 			i++;

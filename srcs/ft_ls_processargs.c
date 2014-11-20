@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/19 11:08:36 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 12:52:58 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		find_optoffset(t_ls_options *opt, int argc, char **argv)
 	{
 		if (argv[i][0] == '-' && stop_opt == 1)
 		{
-			if ((stop_opt = find_options(opt, &(argv[i][1]))) == 0)
+			if (argv[i][1] != '-' && (stop_opt = find_options(opt, &(argv[i][1]))) == 0)
 			{
 				opt_offset = i;
 				opt->files_nbr++;
@@ -122,6 +122,9 @@ int		find_optoffset(t_ls_options *opt, int argc, char **argv)
 			opt->files_nbr++;
 		i++;
 	}
+	/*ft_putstr("Files nbr: ");
+	ft_putnbr(opt->files_nbr);
+	ft_putchar('\n');*/
 	return (opt_offset);
 }
 

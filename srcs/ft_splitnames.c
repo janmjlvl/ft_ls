@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:19:24 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/15 15:42:30 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/20 12:18:10 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int		*def_items(char **tab, int *dex)
 		status = stat(tab[i], &st_buf);
 		if (status)
 		{
+			ft_putstr("\033[31mFailed to stat ");
+			ft_putstr(tab[i]);
+			ft_putendl("\033[0m");
+			exit(-1);
 			dex[0] = -1;
 			return (dex);
 		}
@@ -69,7 +73,12 @@ int		splitnames(char **tab, char ***files, char ***dir)
 	{
 		dex[3] = stat(tab[dex[2]], &st_buf);
 		if (dex[3])
-			return (-1);
+		{
+			ft_putstr("\033[31mFailed to stat ");
+			ft_putstr(tab[dex[2]]);
+			ft_putendl("\033[0m");
+			exit(-1);
+		}
 		if (S_ISDIR(st_buf.st_mode))
 		{
 			(*dir)[dex[0]] = tab[dex[2]];
