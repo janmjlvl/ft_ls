@@ -17,10 +17,10 @@ ft_supp : int	ft_ptrlen()
 
 ft_r_sort_int et r_sort_int pour les memes fonctions mais en reverse.
 
-J'ai beaucoup changer les fonctions de julien qui avaient pas mal de defaut
+J'ai pas mal changer les fonctions de julien,
 meme si j'ai garder le gros de ses fonctions.
 
 Normalement ca marche nikel pour le -t le -S ,meme en reverse, mais pas 
-pour le -u. Le test de norman dit que oui mais en fait non.:wq
+pour le -u. Le test de norman dit que oui mais en fait non.
 Apres j'ai eu des gros probleme a cause de push mal foutu et j'ai perdu
 un fichier donc ptet que mnt plus rien ne marche ;p. (normalement ca marche :D)
