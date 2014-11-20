@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 16:36:38 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 18:22:00 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/20 19:57:34 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		rev_split_sort(char **tab, int first, int last)
 	tmp = tab[key];
 	tab[key] = tab[i];
 	tab[i] = tmp;
-	return (key);
+	return (i);
 }
 
 void	rev_quick_sort(char **tab, int first, int last, int depth)

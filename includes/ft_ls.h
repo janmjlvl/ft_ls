@@ -62,4 +62,6 @@ void		r_int_quick_sort(char **tab, int *tmp, int start, int end);
 void		sortlg_after(char **tab, int *tmp);
 void		r_sortlg_after(char **tab, int *tmp);
 
+void	rev_heap_sort(char **tab, int first, int size);
+
 #endif

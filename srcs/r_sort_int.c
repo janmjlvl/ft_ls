@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:34:15 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 19:14:18 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/20 19:55:48 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		**r_sort_last_acces(char *dir, char **tab)
 		i++;
 	}
 	r_int_quick_sort(tab, tmp, 0, i - 1);
-	//r_sortlg_after(tab, tmp);
+	r_sortlg_after(tab, tmp);
 	return (tab);
 }
 
