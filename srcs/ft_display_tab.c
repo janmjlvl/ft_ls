@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/20 13:55:05 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/20 14:27:47 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,13 @@ char	*ft_chooseprint(char *file, t_ls_options *opts)
 
 void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
 {
+	if (opts->a == 0)
+	{
+		if (opts->ma == 0)
+			ft_ls_striphidden(tab);
+		else
+			ft_ls_stripdot(tab);
+	}
 	if (opts->m)
 		display_stream(tab);
 	else if (opts->one == 1)
