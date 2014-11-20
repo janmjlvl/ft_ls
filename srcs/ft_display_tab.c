@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/20 12:54:57 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/20 13:55:05 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void		display_columns(char **tab, int termwidth)
 	}
 }
 
-static void		display_one(char **tab)
+static void		display_one(char **tab, t_ls_options* opts)
 {
 	while (*tab)
 	{
@@ -89,15 +89,29 @@ static void		display_one(char **tab)
 	}
 }
 
+char	*ft_chooseprint(char *file, t_ls_options *opts)
+{
+	if (opts->a == 1)
+		return (*file);
+	else if (opts->ma == 1)
+	{
+		if (file[0] == '.' &&
+					((file[1] == '.' && file[2] == '\0') || file[1] == '\0'))
+			return (NULL);
+		else
+			return (*file);
+	}
+	else
+	{
+		if (file[0] == '.')
+			return (NULL);
+		else
+			return (*file);
+	}
+}
+
 void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
 {
-	if (opts->a == 0)
-	{
-		if (opts->ma == 0)
-			tab = ft_ls_striphidden(tab);
-		else
-			tab = ft_ls_stripdot(tab);
-	}
 	if (opts->m)
 		display_stream(tab);
 	else if (opts->one == 1)
