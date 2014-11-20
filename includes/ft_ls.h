@@ -50,6 +50,7 @@ char		**r_sortsize_tab(char *dir, char **tab);
 char		**r_sort_last_acces(char *dir, char **tab);
 int			ft_optl(char *dir, char **tab);
 int			simul_log(int n);
+void		quick_sort(char **tab, int first, int last, int depth);
 void		rev_quick_sort(char **tab, int first, int last, int depth);
 void		opt_sort(t_ls_options *opts, char *path, char **tab);
 
