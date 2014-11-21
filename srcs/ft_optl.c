@@ -65,11 +65,8 @@ int	display_acl(char *dir, char *files)
 	acl_entry_t ent;
 	i = acl_init(1);
 	i = acl_get_link_np(ft_make_path(dir, files), ACL_TYPE_EXTENDED);
-	//if (i)
-	//	printf("prout-prout\n");
 	if(acl_get_entry(i, ACL_FIRST_ENTRY, &ent) == -1)
 	{
-	//	printf("get_entry : %d\n", acl_get_entry(i, ACL_FIRST_ENTRY, &ent));
 		acl_free(i);
 		return (0);
 	}
