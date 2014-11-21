@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 15:23:56 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 12:55:57 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ char	*ft_make_path(char *dir, char *ret)
 {
 	char	*new;
 
-	new = ft_strjoin(dir, "/");
-	new = ft_strjoin(new, ret);
+	if (ret[0] != '/')
+	{
+		new = ft_strjoin(dir, "/");
+		new = ft_strjoin(new, ret);
+	}
+	else
+		return ft_strdup(ret);
 	return (new);
 }
 
