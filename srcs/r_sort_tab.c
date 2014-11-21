@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 16:36:38 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 19:57:34 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/21 13:51:36 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,19 +112,22 @@ int		rev_split_sort(char **tab, int first, int last)
 
 void	rev_quick_sort(char **tab, int first, int last, int depth)
 {
-	int	key;
+	//int	key;
 
 	if (first < last)
 	{
-		if (last - first <= 15)
-			rev_insertion_sort(tab, first, last);
-		else if (depth == 0)
+		if (depth)
+//		if (last - first <= 15)
+//		:rev_insertion_sort(tab, first, last);
+//		else if (depth == 0)
+//		{
 			rev_heap_sort(tab, first, last + 1);
+/*		}
 		else
 		{
 			key = rev_split_sort(tab, first, last);
 			rev_quick_sort(tab, first, key - 1, depth - 1);
 			rev_quick_sort(tab, key + 1, last, depth - 1);
-		}
+		}*/
 	}
 }
