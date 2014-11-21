@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/21 13:48:52 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/21 14:53:11 by nmeier           ###   ########.fr       */
 /*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -301,6 +301,8 @@ char	*display_modiftime(char *s)
 
 int		display_total(char *dir, char **files)
 {
+	if (*files == NULL)
+		return (0);
 	int	status;
 	struct stat	buf;
 	int	nb_blocks;
@@ -315,9 +317,9 @@ int		display_total(char *dir, char **files)
 		nb_blocks = nb_blocks + buf.st_blocks;
 		i++;
 	}
-		ft_putstr("total ");
-		ft_putnbr(nb_blocks);
-		ft_putchar('\n');
+	ft_putstr("total ");
+	ft_putnbr(nb_blocks);
+	ft_putchar('\n');
 	return (0);
 }
 
