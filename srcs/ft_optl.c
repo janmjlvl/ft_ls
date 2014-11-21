@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/21 16:15:05 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/21 16:27:46 by nmeier           ###   ########.fr       */
 /*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -120,7 +120,7 @@ int	display_chmod1(char *path)
 	int status;
 	struct stat buf;
 
-	if((status = stat(path, &buf)) == -1)
+	if((status = lstat(path, &buf)) == -1)
 	   return (-1);
 	if ((buf.st_mode & S_IRUSR))
 		ft_putchar('r');
@@ -142,7 +142,7 @@ int	display_chmod2(char *path)
 	int status;
 	struct stat buf;
 
-	if((status = stat(path, &buf)) == -1)
+	if((status = lstat(path, &buf)) == -1)
 	   return (-1);
 	if ((buf.st_mode & S_IRGRP))
 		ft_putchar('r');
@@ -164,7 +164,7 @@ int	display_chmod3(char *path)
 	int status;
 	struct stat buf;
 
-	if((status = stat(path, &buf)) == -1)
+	if((status = lstat(path, &buf)) == -1)
 	   return (-1);
 	if ((buf.st_mode & S_IROTH))
 		ft_putchar('r');
