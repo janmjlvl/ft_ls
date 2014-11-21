@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/21 13:48:52 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/21 18:32:54 by jlevieil         ###   ########.fr       */
 /*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <grp.h>
 #include <sys/xattr.h>
+#include <sys/acl.h>
+#include <stdio.h>
 
 int	display_name(char *dir, char *files)
 {
@@ -51,6 +53,23 @@ int	display_name(char *dir, char *files)
 		ft_putstr(files);
 	free(test);
 	return (k);
+}
+
+int	display_acl(char *dir, char *files)
+{
+	acl_t i;
+	acl_entry_t ent;
+	i = acl_init(1);
+	i = acl_get_link_np(ft_make_path(dir, files), ACL_TYPE_EXTENDED);
+	//if (i)
+	//	printf("prout-prout\n");
+	if(acl_get_entry(i, ACL_FIRST_ENTRY, &ent) == -1)
+	{
+	//	printf("get_entry : %d\n", acl_get_entry(i, ACL_FIRST_ENTRY, &ent));
+		acl_free(i);
+		return (0);
+	}
+	return (1);
 }
 
 int	display_exattributes(char *dir, char *files)
@@ -360,11 +379,14 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 			ft_putstr("error chmod3");
 		if ((display_exattributes(dir, files[i])))
 			ft_putchar('@');
+		if ((display_acl(dir, files[i])) 
+				&& (!display_exattributes(dir, files[i])))
+			ft_putchar('+');
 		else
 			ft_putchar(' ');
 		display_spacingint(buf.st_nlink, tab[0]);
 		ft_putnbr(buf.st_nlink);
-		ft_putchar(' ');
+		//ft_putchar(' ');
 		if (opts->g == 0)
 		{
 			pwd = getpwuid(buf.st_uid);
