@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/20 16:18:13 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 12:52:34 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,8 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		pathtmp = ft_make_path(dir, files[i]);
 		if ((status = stat(pathtmp, &buf)) == -1)
 		{
-			ft_putstr("error stat");
+			ft_putstr("error stat: ");
+			ft_putendl(pathtmp);
 			return (-1);
 		}
 		if ((display_type(pathtmp)) == -1)
