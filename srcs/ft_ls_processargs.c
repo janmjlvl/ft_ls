@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/20 16:03:12 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 15:19:25 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,10 @@ int		find_options(t_ls_options *opt, char *s)
 		}
 		else
 		{
-			ft_putstr("ls: illegal option -- ");
-			ft_putchar(*s);
-			ft_putchar('\n');
+			ft_putstr_fd("ls: illegal option -- ", 2);
+			ft_putchar_fd(*s, 2);
+			ft_putchar_fd('\n', 2);
+			ft_putendl_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]", 2);
 			exit (-1);
 		}
 		s++;

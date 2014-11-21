@@ -1,0 +1,26 @@
+J'ai fais de grosse modif sur les fichiers et fonctions de tri. (johnny)
+
+Du a de nombreux changement sur les fonctions de tri j'ai replacer les fonctions
+dans d'autres fichier et tous le tralala.
+
+ft_sort_int : static int	ft_split_sort()
+				void	int_quick_sort()
+				void	sortlg_after()
+
+sort_int : char **sort_last_access()
+			char **sortsize_tab()
+			char **sorttime_tab()
+
+ft_supp : int	ft_ptrlen()
+			void	swap()
+			int		simul_log()
+
+ft_r_sort_int et r_sort_int pour les memes fonctions mais en reverse.
+
+J'ai pas mal changer les fonctions de julien,
+meme si j'ai garder le gros de ses fonctions.
+
+Normalement ca marche nikel pour le -t le -S ,meme en reverse, mais pas 
+pour le -u. Le test de norman dit que oui mais en fait non.
+Apres j'ai eu des gros probleme a cause de push mal foutu et j'ai perdu
+un fichier donc ptet que mnt plus rien ne marche ;p. (normalement ca marche :D)

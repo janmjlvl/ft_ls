@@ -6,7 +6,8 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/20 16:18:13 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 14:53:11 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +23,69 @@
 #include <grp.h>
 #include <sys/xattr.h>
 
-int	test_listxattr(char *dir, char **files)
+int	display_name(char *dir, char *files)
 {
-	char *test;
-	int	i;
-	ssize_t	k;
+	char	*test;
+	int	k;
+	int status;
+	struct stat buf;
 
-	i = 0;
-	k = 0;
 	test = (char *)malloc(sizeof(char) * 256);
 	if (!test)
 		return (-1);
-	while (files[i] != NULL)
+	if((status = lstat(ft_make_path(dir, files), &buf)) == -1)
+	   return (-1);
+	if ((buf.st_mode & S_IFMT) == S_IFLNK)
 	{
-		k = listxattr(ft_make_path(dir, files[i]),test, 255, XATTR_SHOWCOMPRESSION);
+		k = readlink(ft_make_path(dir, files), test, 255);
 		if (k == -1)
 		{
-			ft_putstr("erreur\n");
+			ft_putstr("erreur readlink");
 			return (-1);
 		}
+		ft_putstr(files);
+		ft_putstr(" -> ");
 		ft_putstr(test);
-		ft_putchar('\n');
-		ft_putnbr(k);
-		ft_putchar('\n');
-		i++;
 	}
+	else
+		ft_putstr(files);
+	free(test);
+	return (k);
+}
+
+int	display_exattributes(char *dir, char *files)
+{
+	char *test;
+	char *test2;
+	ssize_t	k;
+	int	status;
+	struct stat	buf;
+
+	test = (char *)malloc(sizeof(char) * 256);
+	if (!test)
+		return (-1);
+	if((status = stat(ft_make_path(dir, files), &buf)) == -1)
+	   return (-1);
+	if ((buf.st_mode & S_IFMT) == S_IFLNK)
+	{
+		test2 = (char *)malloc(sizeof(char) * 256);
+		k = readlink(ft_make_path(dir, files), test2, 255);
+		if (k == -1)
+		{
+			ft_putstr("erreur readlink");
+			return (-1);
+		}
+		k = listxattr(ft_make_path(dir, test2), test, 255, XATTR_SHOWCOMPRESSION);
+		free(test2);
+	}
+	else
+		k = listxattr(ft_make_path(dir, files),test, 255, XATTR_NOFOLLOW);
+	if (k == -1)
+	{
+		ft_putstr("erreur attributes");
+		return (-1);
+	}
+	free(test);
 	return (k);
 }
 
@@ -181,7 +220,10 @@ int		find_maxlength(char *dir, char **path, int flag)
 			k = max(k, find_intlength(buf.st_size));
 		i++;
 	}
-	k = k + 2;
+	if (flag == 0)
+		k++;
+	if (flag == 1)
+		k = k + 2;
 	return (k);
 }
 
@@ -259,6 +301,8 @@ char	*display_modiftime(char *s)
 
 int		display_total(char *dir, char **files)
 {
+	if (*files == NULL)
+		return (0);
 	int	status;
 	struct stat	buf;
 	int	nb_blocks;
@@ -273,9 +317,9 @@ int		display_total(char *dir, char **files)
 		nb_blocks = nb_blocks + buf.st_blocks;
 		i++;
 	}
-		ft_putstr("total ");
-		ft_putnbr(nb_blocks);
-		ft_putchar('\n');
+	ft_putstr("total ");
+	ft_putnbr(nb_blocks);
+	ft_putchar('\n');
 	return (0);
 }
 
@@ -290,7 +334,6 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 	int tab[4];
 	char *pathtmp;
 
-	//test_listxattr(dir, files);
 	i = 0;
 	if (opts->d == 0)
 		display_total(dir, files);
@@ -300,9 +343,10 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 	while (files[i] != NULL)
 	{
 		pathtmp = ft_make_path(dir, files[i]);
-		if ((status = stat(pathtmp, &buf)) == -1)
+		if ((status = lstat(pathtmp, &buf)) == -1)
 		{
-			ft_putstr("error stat");
+			ft_putstr("error stat: ");
+			ft_putendl(pathtmp);
 			return (-1);
 		}
 		if ((display_type(pathtmp)) == -1)
@@ -316,6 +360,10 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 			ft_putstr("error chmod2");
 		if ((display_chmod3(pathtmp)) == -1)
 			ft_putstr("error chmod3");
+		if ((display_exattributes(dir, files[i])))
+			ft_putchar('@');
+		else
+			ft_putchar(' ');
 		display_spacingint(buf.st_nlink, tab[0]);
 		ft_putnbr(buf.st_nlink);
 		ft_putchar(' ');
@@ -334,20 +382,10 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		ft_putchar(' ');
 		ft_putstr(display_modiftime(ctime(&(buf.st_mtime))));
 		ft_putchar(' ');
-		ft_putstr(files[i]);
+		display_name(dir, files[i]);
 		ft_putchar('\n');
 		free(pathtmp);
 		i++;
 	}
 	return (0);
 }
-
-/*int		main(void)
-{
-	int		status;
-	char **path = ft_list_dir("/dev");
-
-	if ((status = ft_optl(path)) == -1)
-		return (-1);
-	return (0);
-}*/
