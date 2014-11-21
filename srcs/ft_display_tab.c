@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/20 15:37:01 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 16:11:47 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ static void		display_stream(char **tab)
 		tab++;
 	}
 	ft_putchar('\n');
+}
+
+
+static void		display_one(char **tab)
+{
+	while (*tab)
+	{
+		ft_putendl(*tab);
+		tab++;
+	}
 }
 
 static void		display_columns(char **tab, int termwidth)
@@ -50,6 +60,11 @@ static void		display_columns(char **tab, int termwidth)
 	maxlen = maxlen + 8 - (maxlen % 8);
 	tablen = ft_ptrlen(tab);
 	colnbr = termwidth / maxlen;
+	if (colnbr <= 1)
+	{
+		display_one(tab);
+		return ;
+	}
 	linenbr = tablen / colnbr;
 	if (tablen % colnbr != 0)
 	{
@@ -77,15 +92,6 @@ static void		display_columns(char **tab, int termwidth)
 		}
 		ft_putchar('\n');
 		j++;
-	}
-}
-
-static void		display_one(char **tab)
-{
-	while (*tab)
-	{
-		ft_putendl(*tab);
-		tab++;
 	}
 }
 

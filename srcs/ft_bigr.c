@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/21 12:55:57 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 16:32:00 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ char	*ft_make_path(char *dir, char *ret)
 	return (new);
 }
 
+int			is_hidden_dir(char *path)
+{
+	char *ptr;
+	if ((ptr = ft_strrchr(path, '/')) != NULL && (*ptr == '.'))
+	{
+		if (*(ptr - 1) == '.')
+			return (1);
+	}
+	else if (path[0] == '.')
+		return (1);
+	return (0);
+}
+
 void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
 {
 	char	**ret;
@@ -40,7 +53,7 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
 		return ;
 	if ((st_buf.st_mode & S_IFMT) != S_IFDIR)
 		return ;
-	if (first == 0)
+	if (first == 0 && (!is_hidden_dir(dir) || opts->a == 1))
 	{
 		ft_putchar('\n');
 		ft_putstr(dir);
@@ -48,7 +61,8 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
 	}
 	ret = ft_list_dir(dir);
 	opt_sort(opts, dir, ret);
-	ft_display_tab(dir, ret, opts);
+	if (!is_hidden_dir(dir) || opts->a == 1)
+		ft_display_tab(dir, ret, opts);
 	len = ft_ptrlen(ret);
 	while (i < len)
 	{

@@ -6,8 +6,12 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 16:36:38 by jabadie           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2014/11/21 13:59:44 by jlevieil         ###   ########.fr       */
 /*   Updated: 2014/11/21 12:48:19 by nmeier           ###   ########.fr       */
+=======
+/*   Updated: 2014/11/21 16:11:07 by jabadie          ###   ########.fr       */
+>>>>>>> FETCH_HEAD
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +117,19 @@ int		rev_split_sort(char **tab, int first, int last)
 
 void	rev_quick_sort(char **tab, int first, int last, int depth)
 {
-	//int	key;
+	int	key;
 
 	if (first < last)
 	{
-		if (depth)
-//		if (last - first <= 15)
-//		:rev_insertion_sort(tab, first, last);
-//		else if (depth == 0)
-//		{
+		if (depth == 0)
 			rev_heap_sort(tab, first, last + 1);
-/*		}
+		else if (last - first <= 15)
+			rev_insertion_sort(tab, first, last);
 		else
 		{
 			key = rev_split_sort(tab, first, last);
 			rev_quick_sort(tab, first, key - 1, depth - 1);
 			rev_quick_sort(tab, key + 1, last, depth - 1);
-		}*/
+		}
 	}
 }
