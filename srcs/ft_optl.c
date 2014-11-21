@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/21 12:25:32 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/21 12:46:01 by vle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	display_exattributes(char *dir, char *files)
 			return (-1);
 		}
 		k = listxattr(ft_make_path(dir, test2), test, 255, XATTR_SHOWCOMPRESSION);
+		free(test2);
 	}
 	else
 		k = listxattr(ft_make_path(dir, files),test, 255, XATTR_NOFOLLOW);
@@ -83,6 +84,7 @@ int	display_exattributes(char *dir, char *files)
 		ft_putstr("erreur attributes");
 		return (-1);
 	}
+	free(test);
 	return (k);
 }
 
