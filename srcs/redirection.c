@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/21 12:45:50 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 15:25:07 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	opt_sort(t_ls_options *opts, char *path, char **tab)
 			sortsize_tab(path, tab);
 		else if (opts->t == 1)
 			sorttime_tab(path, tab);
-		else if (opts->u == 1)
+		else if (opts->u == 1 && opts->t == 1)
 			sort_last_acces(path, tab);
 		else
 			sortlg_tab(tab);

@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:43:05 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 19:16:44 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/21 13:58:50 by jlevieil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char		**sort_last_acces(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i + 1);
+	tmp = (int*)malloc(sizeof(int) * i);
 	if (!tmp)
 		return (NULL);
 	i = 0;
