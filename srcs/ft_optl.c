@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/21 14:53:11 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/21 16:15:05 by vle-guen         ###   ########.fr       */
 /*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -277,7 +277,7 @@ int		display_spaceuid(char *name, int k)
 	return (0);
 }
 
-char	*display_modiftime(char *s)
+char	*display_modiftime(char *s, int flag)
 {
 	char	*dest;
 	size_t	i;
@@ -285,16 +285,24 @@ char	*display_modiftime(char *s)
 
 	if (s)
 	{
-		i = 0;
-		j = ft_strlen(s) - 1;
-		while (s[i] != '\0' && s[i] != ' ')
-			i++;
-		if (i == ft_strlen(s))
-			return (ft_strnew(0));
-		while ((j > 0) && s[j] != ':')
-			j--;
-		dest = ft_strsub(s, i + 1, j - i - 1);
-		return (dest);
+		if (flag == 0)
+		{
+			dest = ft_strjoin(ft_strsub(s, 4, 7), ft_strsub(s, 19, 5));
+			return (dest);
+		}
+		if (flag == 1)
+		{
+			i = 0;
+			j = ft_strlen(s) - 1;
+			while (s[i] != '\0' && s[i] != ' ')
+				i++;
+			if (i == ft_strlen(s))
+				return (ft_strnew(0));
+			while ((j > 0) && s[j] != ':')
+				j--;
+			dest = ft_strsub(s, i + 1, j - i - 1);
+			return (dest);
+		}
 	}
 	return (0);
 }
@@ -380,7 +388,10 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		display_spacingint(buf.st_size, tab[1]);
 		ft_putnbr(buf.st_size);
 		ft_putchar(' ');
-		ft_putstr(display_modiftime(ctime(&(buf.st_mtime))));
+		if (buf.st_mtime < (time(NULL) - 15778800) || buf.st_mtime > (time(NULL) + 3600))
+			ft_putstr(display_modiftime(ctime(&(buf.st_mtime)), 0));
+		else 
+			ft_putstr(display_modiftime(ctime(&(buf.st_mtime)), 1));
 		ft_putchar(' ');
 		display_name(dir, files[i]);
 		ft_putchar('\n');
