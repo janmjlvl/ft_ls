@@ -6,7 +6,8 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/21 12:25:32 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/21 13:48:52 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +76,7 @@ int	display_exattributes(char *dir, char *files)
 			return (-1);
 		}
 		k = listxattr(ft_make_path(dir, test2), test, 255, XATTR_SHOWCOMPRESSION);
+		free(test2);
 	}
 	else
 		k = listxattr(ft_make_path(dir, files),test, 255, XATTR_NOFOLLOW);
@@ -83,6 +85,7 @@ int	display_exattributes(char *dir, char *files)
 		ft_putstr("erreur attributes");
 		return (-1);
 	}
+	free(test);
 	return (k);
 }
 
@@ -217,6 +220,8 @@ int		find_maxlength(char *dir, char **path, int flag)
 			k = max(k, find_intlength(buf.st_size));
 		i++;
 	}
+	if (flag == 0)
+		k++;
 	if (flag == 1)
 		k = k + 2;
 	return (k);
@@ -338,7 +343,8 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		pathtmp = ft_make_path(dir, files[i]);
 		if ((status = lstat(pathtmp, &buf)) == -1)
 		{
-			ft_putstr("error stat");
+			ft_putstr("error stat: ");
+			ft_putendl(pathtmp);
 			return (-1);
 		}
 		if ((display_type(pathtmp)) == -1)
