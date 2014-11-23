@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/21 16:32:00 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 11:38:31 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ char	*ft_make_path(char *dir, char *ret)
 int			is_hidden_dir(char *path)
 {
 	char *ptr;
-	if ((ptr = ft_strrchr(path, '/')) != NULL && (*ptr == '.'))
+	if ((ptr = ft_strrchr(path, '/')) != NULL)
 	{
-		if (*(ptr - 1) == '.')
+		ptr++;
+		if (*ptr == '.')
 			return (1);
 	}
 	else if (path[0] == '.')

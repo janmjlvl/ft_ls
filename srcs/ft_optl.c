@@ -6,12 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2014/11/21 18:32:54 by jlevieil         ###   ########.fr       */
-=======
-/*   Updated: 2014/11/21 16:27:46 by nmeier           ###   ########.fr       */
->>>>>>> FETCH_HEAD
-/*   Updated: 2014/11/21 12:57:26 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 11:39:25 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,7 +392,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 			ft_putchar(' ');
 		display_spacingint(buf.st_nlink, tab[0]);
 		ft_putnbr(buf.st_nlink);
-		//ft_putchar(' ');
+		ft_putchar(' ');
 		if (opts->g == 0)
 		{
 			pwd = getpwuid(buf.st_uid);
