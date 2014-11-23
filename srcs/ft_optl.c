@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/23 14:04:30 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 16:21:40 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	display_exattributes(char *dir, char *files)
 		k = listxattr(ft_make_path(dir, files),test, 255, XATTR_NOFOLLOW);
 	if (k == -1)
 	{
-		ft_putstr("erreur attributes");
-		return (-1);
+		/*ft_putstr("erreur attributes");*/
+		return (0);
 	}
 	free(test);
 	return (k);
@@ -242,6 +242,24 @@ int		find_maxlength(char *dir, char **path, int flag)
 	return (k);
 }
 
+int		find_maxgidlength(char *dir, char **path)
+{
+	int	k;
+	int i;
+	struct stat	buf;
+
+	i = 0;
+	k = 1;
+	while (path[i] != NULL)
+	{
+		stat(ft_make_path(dir, path[i]), &buf);
+		k = max(k, ft_strlen(getgrgid(buf.st_gid)->gr_name));
+		i++;
+	}
+	k = k + 2;
+	return (k);
+}
+
 int		find_maxcharlength(char *dir, char **path)
 {
 	int	k;
@@ -255,7 +273,7 @@ int		find_maxcharlength(char *dir, char **path)
 	{
 		stat(ft_make_path(dir, path[i]), &buf);
 		pwd = getpwuid(buf.st_uid);
-		k = max(k, ft_strlen(ft_strdup(pwd->pw_name)));
+		k = max(k, ft_strlen(pwd->pw_name));
 		i++;
 	}
 	k = k + 2;
@@ -354,7 +372,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 	struct group	*grp;
 	char		*result;
 	int i;
-	int tab[4];
+	int tab[5];
 	char *pathtmp;
 
 	i = 0;
@@ -363,6 +381,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 	tab[0] = find_maxlength(dir, files, 0);
 	tab[1] = find_maxlength(dir, files, 1);
 	tab[2] = find_maxcharlength(dir, files);
+	tab[3] = find_maxgidlength(dir, files);
 	while (files[i] != NULL)
 	{
 		pathtmp = ft_make_path(dir, files[i]);
@@ -403,8 +422,31 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		grp = getgrgid(buf.st_gid);
 		result = ft_strdup(grp->gr_name);
 		ft_putstr(result);
-		display_spacingint(buf.st_size, tab[1]);
-		ft_putnbr(buf.st_size);
+		display_spaceuid(result, tab[3]);
+		if ((buf.st_mode & S_IFMT) == S_IFCHR || (buf.st_mode & S_IFMT) == S_IFBLK)
+		{
+			/* LE SPACING EST SUPER SALE */
+			/* RDEV MINOR VERSION FUCK UP */
+			if (major(buf.st_rdev) < 10)
+				ft_putchar(' ');
+			ft_putnbr(major(buf.st_rdev));
+			ft_putstr(",  ");
+			if (minor(buf.st_rdev) < 10)
+				ft_putchar(' ');
+			ft_putnbr(minor(buf.st_rdev));
+		}
+		else
+		{
+			int jambon = 0;
+			while (jambon < (tab[1] - find_intlength(buf.st_size) - 2))
+			{
+				ft_putchar(' ');
+				jambon++;
+			}
+			/*display_spacingint(buf.st_size, tab[1]);*/
+			ft_putnbr(buf.st_size);
+			/* SPACING SUPER SALE TERMINE */
+		}
 		ft_putchar(' ');
 		if (buf.st_mtime < (time(NULL) - 15778800) || buf.st_mtime > (time(NULL) + 3600))
 			ft_putstr(display_modiftime(ctime(&(buf.st_mtime)), 0));
