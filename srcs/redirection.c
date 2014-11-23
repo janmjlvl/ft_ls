@@ -6,11 +6,13 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/23 11:27:16 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 12:32:00 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include "unistd.h"
+#include "fcntl.h"
 #include "libft.h"
 #include <stdlib.h>
 
@@ -42,6 +44,24 @@ void	opt_sort(t_ls_options *opts, char *path, char **tab)
 	}
 }
 
+static void	check_tab(char **tab)
+{
+	int fd;
+	while (*tab)
+	{
+		if ((fd = open(*tab, O_RDONLY)) != -1)
+			close(fd);
+		else
+		{
+			ft_putstr_fd("ls: ", 2);
+			ft_putstr_fd(*tab, 2);
+			ft_putendl_fd(": No such file or directory", 2);
+			exit(-1);
+		}
+		tab++;
+	}
+}
+
 void	ft_redirec(t_ls_options *opts)
 {
 	char	**files;
@@ -59,6 +79,7 @@ void	ft_redirec(t_ls_options *opts)
 		return ;
 	if (*files)
 	{
+		check_tab(files);
 		opt_sort(opts, ".", files);
 		ft_display_tab(".", files, opts);
 		if (*dir)
@@ -78,7 +99,6 @@ void	ft_redirec(t_ls_options *opts)
 			if (*files || dir[1] != NULL || opts->files_nbr > 1)
 			{
 				ft_putstr(dir[i]);
-				ft_putendl(":");
 			}
 			ret = ft_list_dir(dir[i]);
 			opt_sort(opts, dir[i], ret);

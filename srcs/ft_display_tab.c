@@ -6,21 +6,22 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/23 11:28:19 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 12:15:13 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
 
-static void		display_stream(char **tab)
+static void		display_stream(char **tab, t_ls_options *opts)
 {
+	(void)opts;
 	while (*tab)
 	{
 		ft_putstr(*tab);
-		if (*(tab + 1))
-			ft_putstr(", ");
 		tab++;
+		if (*tab)
+			ft_putstr(", ");
 	}
 	ft_putchar('\n');
 }
@@ -126,7 +127,7 @@ void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
 			tab = ft_ls_stripdot(tab);
 	}
 	if (opts->m)
-		display_stream(tab);
+		display_stream(tab, opts);
 	else if (opts->one == 1)
 		display_one(tab);
 	else if (opts->l == 1)
