@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/21 16:15:13 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/23 14:47:25 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ void	sortlg_tab(char **tab)
 	int len;
 
 	len = ft_ptrlen(tab);
-	all_quick_sort(tab, 0, len - 1, simul_log(len));
+	insertion_sort(tab, 0, len - 1);
+	/*all_quick_sort(tab, 0, len - 1, simul_log(len));*/
 }
 
 void	revsortlg_tab(char **tab)
@@ -144,6 +145,7 @@ void	revsortlg_tab(char **tab)
 	int len;
 
 	len = ft_ptrlen(tab);
-	rev_quick_sort(tab, 0, len - 1, simul_log(len));
+	rev_insertion_sort(tab, 0, len - 1);
+	/*rev_quick_sort(tab, 0, len - 1, simul_log(len));*/
 }
 

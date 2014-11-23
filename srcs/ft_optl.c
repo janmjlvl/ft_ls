@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/23 11:39:25 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 14:04:30 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,7 +385,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 			ft_putstr("error chmod3");
 		if ((display_exattributes(dir, files[i])))
 			ft_putchar('@');
-		if ((display_acl(dir, files[i])) 
+		else if ((display_acl(dir, files[i])) 
 				&& (!display_exattributes(dir, files[i])))
 			ft_putchar('+');
 		else

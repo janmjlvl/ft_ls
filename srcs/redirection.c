@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/23 12:32:00 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/23 14:44:10 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	opt_sort(t_ls_options *opts, char *path, char **tab)
 			r_sortsize_tab(path, tab);
 		else if (opts->t == 1)
 			r_sorttime_tab(path, tab);
-		else if (opts->u == 1)
+		else if (opts->u == 1 && opts->t == 1)
 			r_sort_last_acces(path, tab);
 		else
 			revsortlg_tab(tab);
@@ -89,6 +89,12 @@ void	ft_redirec(t_ls_options *opts)
 	{
 		i = 0;
 		opt_sort(opts, ".", dir);
+		/*if (ft_ptrlen(dir) == 1 && opts->mr == 1 && opts->a == 0)
+		{
+			char **tmp = ft_list_dir(dir[0]);
+			opt_sort(opts, ".", tmp);
+			ft_display_tab(".", tmp, opts);
+		}*/
 		while (dir[i] != NULL && opts->mr == 1)
 		{
 			ft_bigr(opts, dir[i], 0, 1);
