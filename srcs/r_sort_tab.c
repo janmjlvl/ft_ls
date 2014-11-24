@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 16:36:38 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/23 14:46:57 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 14:43:02 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,12 @@ void	rev_heap_sort(char **tab, int first, int size)
 	i = size - 1;
 	while (i > first)
 	{
-		tmp = tab[i];
-		tab[i] = tab[first];
-		tab[first] = tmp;
+		if (ft_strcmp(tab[i], tab[first]) < 0)
+		{
+			tmp = tab[i];
+			tab[i] = tab[first];
+			tab[first] = tmp;
+		}
 		rev_create_stack(tab, first, i);
 		i--;
 	}

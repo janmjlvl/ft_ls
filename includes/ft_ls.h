@@ -65,5 +65,7 @@ void	rev_insertion_sort(char **tab, int first, int last);
 char	*ft_chooseprint(char *file, t_ls_options *opts);
 
 void	rev_heap_sort(char **tab, int first, int size);
+void	heap_sort(char **tab, int first, int size);
+void	insertion_sort(char **tab, int first, int last);
 
 #endif
