@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/24 12:08:38 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/24 12:20:49 by vle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ int		find_maxlength(char *dir, char **path, int flag)
 	if (flag == 0)
 		k++;
 	if (flag == 2)
-		k = k + 3;
+		k = k + 1;
 	return (k);
 }
 
