@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/23 14:47:25 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 14:58:52 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	insertion_sort(char **tab, int first, int last)
+void	insertion_sort(char **tab, int first, int last)
 {
 	int		i;
 	int		i2;
@@ -59,7 +59,7 @@ static void	create_stack(char **tab, int noeud, int size)
 	}
 }
 
-static void	heap_sort(char **tab, int first, int size)
+void	heap_sort(char **tab, int first, int size)
 {
 	int		i;
 	char	*tmp;
@@ -73,9 +73,12 @@ static void	heap_sort(char **tab, int first, int size)
 	i = size - 1;
 	while (i > first)
 	{
-		tmp = tab[i];
-		tab[i] = tab[first];
-		tab[first] = tmp;
+		if (ft_strcmp(tab[i], tab[first]) < 0)
+		{
+			tmp = tab[i];
+			tab[i] = tab[first];
+			tab[first] = tmp;
+		}
 		create_stack(tab, first, i);
 		i--;
 	}

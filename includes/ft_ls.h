@@ -64,5 +64,7 @@ void		r_sortlg_after(char **tab, int *tmp);
 void	rev_insertion_sort(char **tab, int first, int last);
 
 void	rev_heap_sort(char **tab, int first, int size);
+void	heap_sort(char **tab, int first, int size);
+void	insertion_sort(char **tab, int first, int last);
 
 #endif

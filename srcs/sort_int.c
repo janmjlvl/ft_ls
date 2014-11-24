@@ -6,11 +6,12 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:43:05 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/23 13:20:57 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 15:14:41 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <time.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -32,7 +33,7 @@ char		**sort_last_acces(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		stat(ft_make_path(dir, tab[i]), &s_stat);
+		lstat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_atime;
 		i++;
 	}
@@ -56,7 +57,7 @@ char			**sortsize_tab(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		stat(ft_make_path(dir, tab[i]), &s_stat);
+		lstat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_size;
 		i++;
 	}
@@ -80,7 +81,7 @@ char			**sorttime_tab(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		stat(ft_make_path(dir, tab[i]), &s_stat);
+		lstat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_mtime;
 		i++;
 	}

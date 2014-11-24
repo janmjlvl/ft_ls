@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:34:15 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 19:55:48 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/24 15:14:23 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char		**r_sort_last_acces(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		stat(ft_make_path(dir, tab[i]), &s_stat);
+		lstat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_atime;
 		i++;
 	}
@@ -56,7 +56,7 @@ char			**r_sortsize_tab(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		stat(ft_make_path(dir, tab[i]), &s_stat);
+		lstat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_size;
 		i++;
 	}
@@ -80,7 +80,7 @@ char			**r_sorttime_tab(char *dir, char **tab)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		stat(ft_make_path(dir, tab[i]), &s_stat);
+		lstat(ft_make_path(dir, tab[i]), &s_stat);
 		tmp[i] = s_stat.st_mtime;
 		i++;
 	}
