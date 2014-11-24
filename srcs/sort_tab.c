@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:18:42 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/24 14:58:52 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/11/24 17:12:08 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,16 @@ void	all_quick_sort(char **tab, int first, int last, int depth)
 
 	if (first < last)
 	{
-		if (depth == 0)
+		/*if (depth == 0)
 			heap_sort(tab, first, last + 1);
 		else if (last - first <= 15)
 			insertion_sort(tab, first, last);
 		else
-		{
+		{*/
 			key = split_sort(tab, first, last);
 			all_quick_sort(tab, first, key - 1, depth - 1);
 			all_quick_sort(tab, key + 1, last, depth - 1);
-		}
+		/*}*/
 	}
 }
 
@@ -139,8 +139,8 @@ void	sortlg_tab(char **tab)
 	int len;
 
 	len = ft_ptrlen(tab);
-	insertion_sort(tab, 0, len - 1);
-	/*all_quick_sort(tab, 0, len - 1, simul_log(len));*/
+	/*insertion_sort(tab, 0, len - 1);*/
+	all_quick_sort(tab, 0, len - 1, simul_log(len));
 }
 
 void	revsortlg_tab(char **tab)
@@ -148,7 +148,7 @@ void	revsortlg_tab(char **tab)
 	int len;
 
 	len = ft_ptrlen(tab);
-	rev_insertion_sort(tab, 0, len - 1);
-	/*rev_quick_sort(tab, 0, len - 1, simul_log(len));*/
+	/*rev_insertion_sort(tab, 0, len - 1);*/
+	rev_quick_sort(tab, 0, len - 1, simul_log(len));
 }
 
