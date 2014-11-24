@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/23 16:21:40 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 10:56:37 by vle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,22 +227,26 @@ int		find_maxlength(char *dir, char **path, int flag)
 	k = 1;
 	while (path[i] != NULL)
 	{
-		if ((status = stat(ft_make_path(dir, path[i]), &buf)) == -1)
+		if ((status = lstat(ft_make_path(dir, path[i]), &buf)) == -1)
 			return (-1);
 		if (flag == 0)
 			k = max(k, find_intlength(buf.st_nlink));
 		if (flag == 1)
 			k = max(k, find_intlength(buf.st_size));
+		if (flag == 2)
+			k = max(k, find_intlength(major(buf.st_rdev)));
+		if (flag == 3)
+			k = max(k, find_intlength(minor(buf.st_rdev)));
 		i++;
 	}
 	if (flag == 0)
 		k++;
-	if (flag == 1)
-		k = k + 2;
+	if (flag == 2)
+		k = k + 3;
 	return (k);
 }
 
-int		find_maxgidlength(char *dir, char **path)
+int		find_maxcharlength(char *dir, char **path, int flag)
 {
 	int	k;
 	int i;
@@ -253,27 +257,10 @@ int		find_maxgidlength(char *dir, char **path)
 	while (path[i] != NULL)
 	{
 		stat(ft_make_path(dir, path[i]), &buf);
-		k = max(k, ft_strlen(getgrgid(buf.st_gid)->gr_name));
-		i++;
-	}
-	k = k + 2;
-	return (k);
-}
-
-int		find_maxcharlength(char *dir, char **path)
-{
-	int	k;
-	int i;
-	struct passwd	*pwd;
-	struct stat	buf;
-
-	i = 0;
-	k = 1;
-	while (path[i] != NULL)
-	{
-		stat(ft_make_path(dir, path[i]), &buf);
-		pwd = getpwuid(buf.st_uid);
-		k = max(k, ft_strlen(pwd->pw_name));
+		if (flag == 0)
+			k = max(k, ft_strlen(getpwuid(buf.st_uid)->pw_name));
+		if (flag == 1)
+			k = max(k, ft_strlen(getgrgid(buf.st_gid)->gr_name));
 		i++;
 	}
 	k = k + 2;
@@ -380,8 +367,10 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		display_total(dir, files);
 	tab[0] = find_maxlength(dir, files, 0);
 	tab[1] = find_maxlength(dir, files, 1);
-	tab[2] = find_maxcharlength(dir, files);
-	tab[3] = find_maxgidlength(dir, files);
+	tab[2] = find_maxcharlength(dir, files, 0);
+	tab[3] = find_maxcharlength(dir, files, 1);
+	tab[4] = find_maxlength(dir, files, 2);
+	tab[5] = find_maxlength(dir, files, 3);
 	while (files[i] != NULL)
 	{
 		pathtmp = ft_make_path(dir, files[i]);
@@ -425,27 +414,17 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		display_spaceuid(result, tab[3]);
 		if ((buf.st_mode & S_IFMT) == S_IFCHR || (buf.st_mode & S_IFMT) == S_IFBLK)
 		{
-			/* LE SPACING EST SUPER SALE */
 			/* RDEV MINOR VERSION FUCK UP */
-			if (major(buf.st_rdev) < 10)
-				ft_putchar(' ');
+			display_spacingint(major(buf.st_rdev), tab[4]);
 			ft_putnbr(major(buf.st_rdev));
-			ft_putstr(",  ");
-			if (minor(buf.st_rdev) < 10)
-				ft_putchar(' ');
+			ft_putstr(", ");
+			display_spacingint(minor(buf.st_rdev), tab[5]);
 			ft_putnbr(minor(buf.st_rdev));
 		}
 		else
 		{
-			int jambon = 0;
-			while (jambon < (tab[1] - find_intlength(buf.st_size) - 2))
-			{
-				ft_putchar(' ');
-				jambon++;
-			}
-			/*display_spacingint(buf.st_size, tab[1]);*/
+			display_spacingint(buf.st_size, tab[1]);
 			ft_putnbr(buf.st_size);
-			/* SPACING SUPER SALE TERMINE */
 		}
 		ft_putchar(' ');
 		if (buf.st_mtime < (time(NULL) - 15778800) || buf.st_mtime > (time(NULL) + 3600))
