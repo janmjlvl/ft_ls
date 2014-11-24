@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/23 14:46:20 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 16:36:00 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,18 @@ int			is_hidden_dir(char *path)
 	return (0);
 }
 
-void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
+int		is_empty_dir(char **tab, t_ls_options* opts)
+{
+	while (*tab)
+	{
+		if (ft_chooseprint(*tab, opts))
+			return (0);
+		tab++;
+	}
+	return (1);
+}
+
+void	ft_bigr(t_ls_options *opts, char *dir, int i, int *first)
 {
 	char	**ret;
 	int		len;
@@ -56,22 +67,26 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int first)
 		return ;
 	if ((st_buf.st_mode & S_IFMT) != S_IFDIR)
 		return ;
-	if (first == 0 && (!is_hidden_dir(dir) || opts->a == 1 || opts->ma))
+	ret = ft_list_dir(dir);
+	opt_sort(opts, dir, ret);
+	if (*first == 0 && (!is_hidden_dir(dir) || opts->a == 1 || opts->ma == 1))
 	{
 		ft_putchar('\n');
 		ft_putstr(dir);
 		ft_putendl(":");
 	}
-	ret = ft_list_dir(dir);
-	opt_sort(opts, dir, ret);
 	if ((!is_hidden_dir(dir)) || opts->a == 1 || opts->ma == 1)
+	{
+		if (!is_empty_dir(ret, opts))
+			*first = 0;
 		ft_display_tab(dir, ret, opts);
+	}
 	len = ft_ptrlen(ret);
 	while (i < len)
 	{
 		if (!(ret[i][0] == '.' && ((ret[i][1] == '.' && ret[i][2] == '\0')
 														|| ret[i][1] == '\0')))
-			ft_bigr(opts, ft_make_path(dir, ret[i]), 0, 0);
+			ft_bigr(opts, ft_make_path(dir, ret[i]), 0, first);
 		i++;
 	}
 }

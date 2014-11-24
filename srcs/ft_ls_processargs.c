@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/21 15:19:25 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 16:57:55 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "ft_ls.h"
 #include <stdlib.h>
 #include <sys/ioctl.h>
-
+#include <unistd.h>
+#include <stdio.h>
 int		find_options(t_ls_options *opt, char *s)
 {
 	//ft_putstr("Processing options: ");
@@ -170,5 +171,9 @@ void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts)
 	int opt_offset;
 
 	opt_offset = find_optoffset(opts, argc, argv);
+	if (!isatty(fileno(stdout)) && opts->l == 0)
+	{
+		opts->one = 1;
+	}
 	find_filenames(opts, argv, opt_offset);
 }

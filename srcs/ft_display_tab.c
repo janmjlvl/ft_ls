@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/23 12:15:13 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 14:56:23 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void		display_columns(char **tab, int termwidth)
 			ft_putstr(tab[(i * linenbr) + j]);
 			tmp = ft_strlen(tab[(i * linenbr) + j]);
 			if (i + 1 < colnbr && ((i + 1) * linenbr) + j < tablen)
-				//ft_putchar('\t');
 			{
 				k = 0;
 				while (k < maxlen - tmp)

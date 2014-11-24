@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:19:24 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/23 14:24:17 by nmeier           ###   ########.fr       */
+/*   Updated: 2014/11/24 14:10:13 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "ft_ls.h"
 #include <sys/stat.h>
 #include <stdlib.h>
+#include <stdio.h>
+
 
 int		*def_items(char **tab, int *dex)
 {
@@ -71,10 +73,11 @@ int		splitnames(char **tab, char ***files, char ***dir)
 		dex[3] = stat(tab[dex[2]], &st_buf);
 		if (dex[3])
 		{
-			/*ft_putstr_fd("ls: ", 2);
+			perror(NULL);
+			ft_putstr_fd("ls: ", 2);
 			ft_putstr_fd(tab[dex[2]], 2);
 			ft_putendl_fd(": No such file or directory", 2);
-			return(-1);*/
+			return(-1);
 		}
 		else if (S_ISDIR(st_buf.st_mode))
 		{

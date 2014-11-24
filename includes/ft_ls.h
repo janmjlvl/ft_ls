@@ -42,7 +42,7 @@ void		ft_redirec(t_ls_options *opts);
 char		**sorttime_tab(char *dir, char **tab);
 void		revsortlg_tab(char **tab);
 void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts);
-void		ft_bigr(t_ls_options *opts, char *dir, int i, int first);
+void		ft_bigr(t_ls_options *opts, char *dir, int i, int *first);
 char		**sortsize_tab(char *dir, char **tab);
 char		**ft_ls_striphidden(char **tab);
 char		*ft_make_path(char *dir, char *ret);
@@ -62,6 +62,7 @@ void		r_int_quick_sort(char **tab, int *tmp, int start, int end);
 void		sortlg_after(char **tab, int *tmp);
 void		r_sortlg_after(char **tab, int *tmp);
 void	rev_insertion_sort(char **tab, int first, int last);
+char	*ft_chooseprint(char *file, t_ls_options *opts);
 
 void	rev_heap_sort(char **tab, int first, int size);
 

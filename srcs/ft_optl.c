@@ -6,12 +6,13 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/24 12:20:49 by vle-guen         ###   ########.fr       */
+/*   Updated: 2014/11/24 15:19:35 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
+#include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <time.h>
@@ -351,6 +352,20 @@ int		display_total(char *dir, char **files)
 	return (0);
 }
 
+int		findblkchr(char *dir, char **tab)
+{
+	struct stat buf;
+	while (*tab)
+	{
+		if(lstat(ft_make_path(dir, *tab), &buf) == -1)
+			return (-1);
+		else if ((buf.st_mode & S_IFMT) == S_IFCHR || (buf.st_mode & S_IFMT) == S_IFBLK)
+			return (1);
+		tab++;
+	}
+	return (0);
+}
+
 int		ft_optl(char *dir, char **files, t_ls_options *opts)
 {
 	int			status;
@@ -361,7 +376,9 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 	int i;
 	int tab[5];
 	char *pathtmp;
+	int hasblkorchr;
 
+	hasblkorchr = findblkchr(dir, files);
 	i = 0;
 	if (opts->d == 0)
 		display_total(dir, files);
@@ -376,8 +393,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		pathtmp = ft_make_path(dir, files[i]);
 		if ((status = lstat(pathtmp, &buf)) == -1)
 		{
-			ft_putstr("error stat: ");
-			ft_putendl(pathtmp);
+			perror(ft_strjoin("ls: ", ft_strrchr(pathtmp, '/') + 1));
 			return (-1);
 		}
 		if ((display_type(pathtmp)) == -1)
@@ -423,6 +439,8 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		}
 		else
 		{
+			if (hasblkorchr)
+				display_spacingint(0, tab[4] + tab[5] + 2);
 			display_spacingint(buf.st_size, tab[1]);
 			ft_putnbr(buf.st_size);
 		}
