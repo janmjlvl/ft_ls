@@ -121,9 +121,9 @@ void	all_quick_sort(char **tab, int first, int last, int depth)
 
 	if (first < last)
 	{
-		if (depth == 0)
+		/*if (depth == 0)
 			heap_sort(tab, first, last + 1);
-		else if (last - first <= 15)
+		else */if (last - first <= 15)
 			insertion_sort(tab, first, last);
 		else
 		{
