@@ -40,6 +40,7 @@ int	display_name(char *dir, char *files)
 	if ((buf.st_mode & S_IFMT) == S_IFLNK)
 	{
 		k = readlink(ft_make_path(dir, files), test, 255);
+		test[k] = '\0';
 		if (k == -1)
 		{
 			ft_putstr("erreur readlink");
@@ -259,9 +260,19 @@ int		find_maxcharlength(char *dir, char **path, int flag)
 	{
 		stat(ft_make_path(dir, path[i]), &buf);
 		if (flag == 0)
-			k = max(k, ft_strlen(getpwuid(buf.st_uid)->pw_name));
+		{
+			if (getpwuid(buf.st_uid))
+				k = max(k, ft_strlen(getpwuid(buf.st_uid)->pw_name));
+			else
+				k = max(k, ft_strlen(ft_itoa(buf.st_uid)));
+		}
 		if (flag == 1)
-			k = max(k, ft_strlen(getgrgid(buf.st_gid)->gr_name));
+		{
+			if (getgrgid(buf.st_gid))
+				k = max(k, ft_strlen(getgrgid(buf.st_gid)->gr_name));
+			else
+				k = max(k, ft_strlen(ft_itoa(buf.st_gid)));
+		}
 		i++;
 	}
 	k = k + 2;
@@ -366,7 +377,7 @@ int		findblkchr(char *dir, char **tab)
 	return (0);
 }
 
-int		ft_optl(char *dir, char **files, t_ls_options *opts)
+int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 {
 	int			status;
 	struct stat	buf;
@@ -380,7 +391,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 
 	hasblkorchr = findblkchr(dir, files);
 	i = 0;
-	if (opts->d == 0)
+	if (opts->d == 0 && isdir)
 		display_total(dir, files);
 	tab[0] = find_maxlength(dir, files, 0);
 	tab[1] = find_maxlength(dir, files, 1);
@@ -420,14 +431,31 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts)
 		if (opts->g == 0)
 		{
 			pwd = getpwuid(buf.st_uid);
-			result = ft_strdup(pwd->pw_name);
-			ft_putstr(result);
-			display_spaceuid(result, tab[2]);
+			if (pwd)
+			{
+				result = ft_strdup(pwd->pw_name);
+				ft_putstr(result);
+				display_spaceuid(result, tab[2]);
+			}
+			else
+			{
+				ft_putnbr(buf.st_uid);
+				display_spaceuid(ft_itoa(buf.st_uid), tab[2]);
+			}
+			
 		}
 		grp = getgrgid(buf.st_gid);
-		result = ft_strdup(grp->gr_name);
-		ft_putstr(result);
-		display_spaceuid(result, tab[3]);
+		if (grp)
+		{
+			result = ft_strdup(grp->gr_name);
+			ft_putstr(result);
+			display_spaceuid(result, tab[3]);
+		}
+		else
+		{
+			ft_putnbr(buf.st_gid);
+			display_spaceuid(ft_itoa(buf.st_gid), tab[3]);
+		}
 		if ((buf.st_mode & S_IFMT) == S_IFCHR || (buf.st_mode & S_IFMT) == S_IFBLK)
 		{
 			/* RDEV MINOR VERSION FUCK UP */

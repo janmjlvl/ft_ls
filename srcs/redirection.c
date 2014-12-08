@@ -76,13 +76,13 @@ void	ft_redirec(t_ls_options *opts)
 		dir = malloc(sizeof(char*) * 1);
 		*dir = NULL;
 	}
-	else if (splitnames(opts->names, &files, &dir) == -1)
+	else if (splitnames(opts->names, &files, &dir, opts) == -1)
 		return ;
 	if (*files)
 	{
 		check_tab(files);
 		opt_sort(opts, ".", files);
-		ft_display_tab(".", files, opts);
+		ft_display_tab(".", files, opts, 0);
 		if (*dir)
 			ft_putchar('\n');
 	}
@@ -109,10 +109,13 @@ void	ft_redirec(t_ls_options *opts)
 				ft_putendl(":");
 			}
 			ret = ft_list_dir(dir[i]);
-			opt_sort(opts, dir[i], ret);
-			ft_display_tab(dir[i], ret, opts);
-			if (dir[i+1] != NULL)
-				ft_putchar('\n');
+			if (ret)
+			{
+				opt_sort(opts, dir[i], ret);
+				ft_display_tab(dir[i], ret, opts, 1);
+				if (dir[i+1] != NULL)
+					ft_putchar('\n');
+			}
 			i++;
 		}
 	}

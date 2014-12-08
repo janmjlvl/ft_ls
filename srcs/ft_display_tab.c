@@ -116,7 +116,7 @@ char	*ft_chooseprint(char *file, t_ls_options *opts)
 	}
 }
 
-void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
+void		ft_display_tab(char *dir, char **tab, t_ls_options* opts, int isdir)
 {
 	if (opts->a == 0)
 	{
@@ -130,7 +130,7 @@ void		ft_display_tab(char *dir, char **tab, t_ls_options* opts)
 	else if (opts->one == 1)
 		display_one(tab);
 	else if (opts->l == 1)
-		ft_optl(dir, tab, opts);
+		ft_optl(dir, tab, opts, isdir);
 	else
 		display_columns(tab, opts->termwidth);
 }

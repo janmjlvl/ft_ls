@@ -12,7 +12,7 @@
 
 NAME = ft_ls
 SRCS = $(wildcard srcs/*.c)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 OBJS = $(patsubst srcs/%.c, objs/%.o, $(SRCS))
 LIBFT = libft/libft.a
 

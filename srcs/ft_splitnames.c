@@ -55,7 +55,7 @@ int		alloc_ptr(char ***files, char ***dir, int *dex)
 	return (0);
 }
 
-int		splitnames(char **tab, char ***files, char ***dir)
+int		splitnames(char **tab, char ***files, char ***dir, t_ls_options *opts)
 {
 	int			dex[4];
 	struct stat	st_buf;
@@ -70,7 +70,10 @@ int		splitnames(char **tab, char ***files, char ***dir)
 	dex[1] = 0;
 	while (dex[2] < ft_ptrlen(tab))
 	{
-		dex[3] = stat(tab[dex[2]], &st_buf);
+		if (opts->l)
+			dex[3] = lstat(tab[dex[2]], &st_buf);
+		else
+			dex[3] = stat(tab[dex[2]], &st_buf);
 		if (dex[3])
 		{
 			perror(NULL);

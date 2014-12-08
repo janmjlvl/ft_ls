@@ -26,11 +26,6 @@ char		**ft_list_dir(char *dirname)
 	int i;
 
 	dirp = opendir(dirname);
-	/*ft_putstr("opendir(\"");
-	ft_putstr(dirname);
-	ft_putstr("\") -> ");
-	ft_putnbr((size_t)dirp);
-	ft_putchar('\n');*/
 	if (dirp == NULL)
 	{
 		ft_putstr_fd("ls: ", 2);

@@ -81,7 +81,7 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int *first)
 	{
 		if (!is_empty_dir(ret, opts))
 			*first = 0;
-		ft_display_tab(dir, ret, opts);
+		ft_display_tab(dir, ret, opts, 1);
 	}
 	len = ft_ptrlen(ret);
 	while (i < len)
