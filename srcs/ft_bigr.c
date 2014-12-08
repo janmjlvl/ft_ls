@@ -67,14 +67,16 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int *first)
 		return ;
 	if ((st_buf.st_mode & S_IFMT) != S_IFDIR)
 		return ;
-	ret = ft_list_dir(dir);
-	opt_sort(opts, dir, ret);
 	if (*first == 0 && (!is_hidden_dir(dir) || opts->a == 1 || opts->ma == 1))
 	{
 		ft_putchar('\n');
 		ft_putstr(dir);
 		ft_putendl(":");
 	}
+	ret = ft_list_dir(dir);
+	if (!ret)
+		return ;
+	opt_sort(opts, dir, ret);
 	if ((!is_hidden_dir(dir)) || opts->a == 1 || opts->ma == 1)
 	{
 		if (!is_empty_dir(ret, opts))

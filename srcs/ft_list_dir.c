@@ -22,7 +22,7 @@ char		**ft_list_dir(char *dirname)
 	struct dirent* dp;
 	int		file_nbr;
 	char	**result;
-	/*char *ptr;*/
+	char *ptr;
 	int i;
 
 	dirp = opendir(dirname);
@@ -33,14 +33,14 @@ char		**ft_list_dir(char *dirname)
 	ft_putchar('\n');*/
 	if (dirp == NULL)
 	{
-		/*ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd("ls: ", 2);
 		if ((ptr = ft_strrchr(dirname, '/')) != NULL)
 			ft_putstr_fd(ptr + 1, 2);
 		else
 			ft_putstr_fd(dirname, 2);
-		ft_putendl_fd(": Not a directory", 2);*/
+		ft_putstr(": ");
 		perror(NULL);
-		exit(-1);
+		return (NULL);
 	}
 	file_nbr = 0;
 	while((dp = readdir(dirp)) != NULL)
