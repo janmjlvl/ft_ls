@@ -148,7 +148,12 @@ int	display_chmod1(char *path)
 	else
 		ft_putchar('-');
 	if ((buf.st_mode & S_IXUSR))
-		ft_putchar('x');
+	{
+		if ((buf.st_mode & S_ISUID))
+			ft_putchar('s');
+		else
+			ft_putchar('x');
+	}
 	else
 		ft_putchar('-');
 	return (0);
@@ -170,7 +175,12 @@ int	display_chmod2(char *path)
 	else
 		ft_putchar('-');
 	if ((buf.st_mode & S_IXGRP))
-		ft_putchar('x');
+	{
+		if ((buf.st_mode & S_ISGID))
+			ft_putchar('s');
+		else
+			ft_putchar('x');
+	}
 	else
 		ft_putchar('-');
 	return (0);
