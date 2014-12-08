@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 20:23:16 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/20 20:29:04 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/12/08 14:33:24 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	ft_ptrlen(char **ptr)
 	return (i);
 }
 
-void	swap(char **tab, int *tmp, int i, int j)
+void	swap(char **tab, long int *tmp, int i, int j)
 {
-	int		i_tmp;
+	long int	i_tmp;
 	char	*c_tmp;
 
 	i_tmp = tmp[i];

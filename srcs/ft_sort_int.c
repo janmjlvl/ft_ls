@@ -6,38 +6,39 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 19:06:16 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/24 15:09:23 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/12/08 14:37:13 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-static int		split_sort(char **tab, int *tmp, int start, int end)
+static int		split_sort(char **tab, long int *tmp, int start, int end)
 {
 	int pivot;
 	int left;
 	int right;
 
-	pivot = tmp[end];
+	pivot = end;
 	left = start - 1;
 	right = end;
 	while (left <= right)
 	{
-		right--;
-		while (right >= start && tmp[right] < pivot)
-			right--;
 		left++;
-		while (left < end && tmp[left] > pivot)
+		right--;
+		while (left < end && tmp[left] > tmp[pivot])
 			left++;
+		while (right >= start && tmp[right] < tmp[pivot])
+			right--;
 		if (left < right)
 			swap(tab, tmp, left, right);
 	}
-	swap(tab, tmp, end, left);
+	swap(tab, tmp, pivot, left);
 	return (left);
 }
 
-void	int_quick_sort(char **tab, int *tmp, int start, int end)
+void	int_quick_sort(char **tab, long int *tmp, int start, int end)
 {
 	int key;
 
@@ -49,7 +50,7 @@ void	int_quick_sort(char **tab, int *tmp, int start, int end)
 	}
 }
 
-void	sortlg_after(char **tab, int *tmp)
+void	sortlg_after(char **tab, long int *tmp)
 {
 	int	i;
 	int	start;

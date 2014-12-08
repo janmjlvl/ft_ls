@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:43:05 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/24 15:14:41 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/12/08 14:36:25 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char		**sort_last_acces(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
-	int				*tmp;
+	long int				*tmp;
 
 	i = 0;
 	while (tab[i] != '\0')
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i);
+	tmp = (long int*)malloc(sizeof(long int) * i);
 	if (!tmp)
 		return (NULL);
 	i = 0;
@@ -46,12 +46,12 @@ char			**sortsize_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
-	int				*tmp;
+	long int		*tmp;
 
 	i = 0;
 	while (tab[i] != '\0')
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i);
+	tmp = (long int*)malloc(sizeof(long int) * i);
 	if (!tmp)
 		return (NULL);
 	i = 0;
@@ -70,12 +70,12 @@ char			**sorttime_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
-	int				*tmp;
+	long int		*tmp;
 
 	i = 0;
 	while (tab[i] != NULL)
 		i++;
-	tmp = (int*)malloc(sizeof(int) * i);
+	tmp = (long int*)malloc(sizeof(long int) * i);
 	if (!tmp)
 		return (NULL);
 	i = 0;

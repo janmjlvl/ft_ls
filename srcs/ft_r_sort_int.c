@@ -6,14 +6,14 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:49:09 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/24 13:34:31 by jabadie          ###   ########.fr       */
+/*   Updated: 2014/12/08 14:33:54 by jabadie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdlib.h>
 
-static int		r_split_sort(char **tab, int *tmp, int start, int end)
+static int		r_split_sort(char **tab, long int *tmp, int start, int end)
 {
 	int pivot;
 	int left;
@@ -37,7 +37,7 @@ static int		r_split_sort(char **tab, int *tmp, int start, int end)
 	return (left);
 }
 
-void	r_int_quick_sort(char **tab, int *tmp, int start, int end)
+void	r_int_quick_sort(char **tab, long int *tmp, int start, int end)
 {
 	int key;
 
@@ -49,7 +49,7 @@ void	r_int_quick_sort(char **tab, int *tmp, int start, int end)
 	}
 }
 
-void	r_sortlg_after(char **tab, int *tmp)
+void	r_sortlg_after(char **tab, long int *tmp)
 {
 	int	i;
 	int	start;
