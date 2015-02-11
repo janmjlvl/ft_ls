@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 13:05:35 by jabadie           #+#    #+#             */
-/*   Updated: 2014/11/24 16:59:27 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 11:52:52 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,17 @@ void	ft_bigr(t_ls_options *opts, char *dir, int i, int *first)
 		return ;
 	if ((st_buf.st_mode & S_IFMT) != S_IFDIR)
 		return ;
-	if (*first == 0 && (!is_hidden_dir(dir) || opts->a == 1 || opts->ma == 1))
+	if (/**first == 0 &&*/ (!is_hidden_dir(dir) || opts->a == 1 || opts->ma == 1))
 	{
-		ft_putchar('\n');
-		ft_putstr(dir);
-		ft_putendl(":");
+		if (*first == 0)
+		{
+			ft_putchar('\n');
+		}
+		if (ft_strcmp(dir, ".") != 0)
+		{
+			ft_putstr(dir);
+			ft_putendl(":");
+		}
 	}
 	ret = ft_list_dir(dir);
 	if (!ret)

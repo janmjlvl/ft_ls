@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 10:31:47 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/20 20:22:33 by jabadie          ###   ########.fr       */
+/*   Updated: 2015/02/11 12:35:40 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,3 @@ int		main(int argc, char **argv)
 	ft_redirec(&opts);
 	return (0);
 }
-
-/*int		main(int argc, char **argv)
-{
-	t_ls_options opts;
-	(void)argc;
-	ft_bzero(&opts, sizeof(t_ls_options));
-	ft_display_tab(ft_list_dir(argv[1]), &opts);
-	return (0);
-}*/

@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:19:24 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/24 14:10:13 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 14:08:10 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		*def_items(char **tab, int *dex)
 	dex[1] = 0;
 	while (i < ft_ptrlen(tab))
 	{
-		status = stat(tab[i], &st_buf);
+		status = lstat(tab[i], &st_buf);
 		if (status)
 		{
 			ft_putstr_fd("ls: ", 2);
@@ -74,15 +74,15 @@ int		splitnames(char **tab, char ***files, char ***dir, t_ls_options *opts)
 			dex[3] = lstat(tab[dex[2]], &st_buf);
 		else
 			dex[3] = stat(tab[dex[2]], &st_buf);
-		if (dex[3])
-		{
-			perror(NULL);
+		/*if (dex[3])
+		{*/
+			/*perror(NULL);
 			ft_putstr_fd("ls: ", 2);
 			ft_putstr_fd(tab[dex[2]], 2);
-			ft_putendl_fd(": No such file or directory", 2);
-			return(-1);
-		}
-		else if (S_ISDIR(st_buf.st_mode))
+			ft_putendl_fd(": No such file or directory 1", 2);*/
+			//return(-1);
+		/*}
+		else */if (S_ISDIR(st_buf.st_mode))
 		{
 			(*dir)[dex[0]] = tab[dex[2]];
 			dex[0] = dex[0] + 1;

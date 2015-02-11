@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 10:35:02 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/24 16:57:55 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 13:16:30 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
+
 int		find_options(t_ls_options *opt, char *s)
 {
-	//ft_putstr("Processing options: ");
-	//ft_putendl(s);
+	/*ft_putstr("Processing options: ");
+	ft_putendl(s);*/
 	if (*s == '\0') /* si l'argument est '-', ls va chercher le fichier intitulé '-'*/
-		return (0);
+		return (-1);
 	if (*s == '-' && *(s + 1) == '\0')
 		return (0);
-	if (*s == '-' && *(s + 1) != '\0')
-		return (-1);
 	while (*s != '\0')
 	{
 		if (*s == 'a')
@@ -120,10 +119,15 @@ int		find_optoffset(t_ls_options *opt, int argc, char **argv)
 	{
 		if (argv[i][0] == '-' && stop_opt == 1)
 		{
-			if (argv[i][1] != '-' && (stop_opt = find_options(opt, &(argv[i][1]))) == 0)
+			if ((stop_opt = find_options(opt, &(argv[i][1]))) != 1)
 			{
-				opt_offset = i;
-				opt->files_nbr++;
+				if (stop_opt == -1)
+				{
+					opt_offset = i;
+					opt->files_nbr++;
+				}
+				else
+					opt_offset = i + 1;
 			}
 		}
 		else if (stop_opt == 1)
@@ -136,9 +140,6 @@ int		find_optoffset(t_ls_options *opt, int argc, char **argv)
 			opt->files_nbr++;
 		i++;
 	}
-	/*ft_putstr("Files nbr: ");
-	ft_putnbr(opt->files_nbr);
-	ft_putchar('\n');*/
 	return (opt_offset);
 }
 
@@ -172,8 +173,6 @@ void		ft_ls_processargs(int argc, char **argv, t_ls_options *opts)
 
 	opt_offset = find_optoffset(opts, argc, argv);
 	if (!isatty(fileno(stdout)) && opts->l == 0)
-	{
 		opts->one = 1;
-	}
 	find_filenames(opts, argv, opt_offset);
 }

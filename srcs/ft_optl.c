@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2014/11/24 15:19:35 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 14:35:06 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,12 @@ int	display_chmod1(char *path)
 			ft_putchar('x');
 	}
 	else
-		ft_putchar('-');
+	{
+		if ((buf.st_mode & S_ISUID))
+			ft_putchar('S');
+		else
+			ft_putchar('-');
+	}
 	return (0);
 }
 
@@ -182,7 +187,12 @@ int	display_chmod2(char *path)
 			ft_putchar('x');
 	}
 	else
-		ft_putchar('-');
+	{
+		if ((buf.st_mode & S_ISGID))
+			ft_putchar('S');
+		else
+			ft_putchar('-');
+	}
 	return (0);
 }
 
@@ -201,7 +211,14 @@ int	display_chmod3(char *path)
 		ft_putchar('w');
 	else
 		ft_putchar('-');
-	if ((buf.st_mode & S_IXOTH))
+	if (buf.st_mode & S_ISVTX)
+	{
+		if (buf.st_mode & S_IXOTH)
+			ft_putchar('t');
+		else
+			ft_putchar('T');
+	}
+	else if ((buf.st_mode & S_IXOTH))
 		ft_putchar('x');
 	else
 		ft_putchar('-');
@@ -428,8 +445,8 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 			ft_putstr("error chmod2");
 		if ((display_chmod3(pathtmp)) == -1)
 			ft_putstr("error chmod3");
-		if ((display_exattributes(dir, files[i])))
-			ft_putchar('@');
+		/*if ((display_exattributes(dir, files[i])))
+			ft_putchar('@');*/
 		else if ((display_acl(dir, files[i])) 
 				&& (!display_exattributes(dir, files[i])))
 			ft_putchar('+');
