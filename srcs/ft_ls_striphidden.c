@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 13:52:17 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/19 11:01:26 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 15:01:11 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char **ft_ls_striphidden(char **tab)
 	j = 0;
 	while (tab[i])
 	{
-		if (tab[i][0] != '.')
+		if (tab[i][0] != '.' || tab[i][1] == '/')
 		{
 			j++;
 		}
@@ -75,7 +75,7 @@ char **ft_ls_striphidden(char **tab)
 	j = 0;
 	while (tab[i])
 	{
-		if (tab[i][0] != '.')
+		if (tab[i][0] != '.' || tab[i][1] == '/')
 		{
 			result[j] = tab[i];
 			j++;
