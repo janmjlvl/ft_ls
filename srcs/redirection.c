@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2015/02/11 14:58:08 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 15:12:28 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	opt_sort(t_ls_options *opts, char *path, char **tab)
 		//	ft_putendl("sortsize_tab");
 			sortsize_tab(path, tab);
 		}
-		else if (opts->t == 1)
+		else if (opts->t == 1 && opts->u == 0)
 		{
 		//	ft_putendl("sorttime_tab");
 			sorttime_tab(path, tab);
@@ -50,7 +50,7 @@ void	opt_sort(t_ls_options *opts, char *path, char **tab)
 		//	ft_putendl("rev sortsize_tab");
 			r_sortsize_tab(path, tab);
 		}
-		else if (opts->t == 1)
+		else if (opts->t == 1 && opts->u == 0)
 		{
 		//	ft_putendl("rev sorttime_tab");
 			r_sorttime_tab(path, tab);

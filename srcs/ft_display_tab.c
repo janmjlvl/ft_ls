@@ -6,7 +6,7 @@
 /*   By: nmeier <nmeier@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:51:28 by nmeier            #+#    #+#             */
-/*   Updated: 2014/11/24 14:56:23 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/11 15:09:37 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,11 @@ void		ft_display_tab(char *dir, char **tab, t_ls_options* opts, int isdir)
 	if (opts->a == 0)
 	{
 		if (opts->ma == 0)
+		{
+			if (!opts->d)
+				tab = ft_ls_stripdot(tab);
 			tab = ft_ls_striphidden(tab);
+		}
 		else
 			tab = ft_ls_stripdot(tab);
 	}
