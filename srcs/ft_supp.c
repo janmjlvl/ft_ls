@@ -6,13 +6,13 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 20:23:16 by jabadie           #+#    #+#             */
-/*   Updated: 2014/12/08 14:33:24 by jabadie          ###   ########.fr       */
+/*   Updated: 2015/02/12 15:59:50 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_ptrlen(char **ptr)
+int		ft_ptrlen(char **ptr)
 {
 	int i;
 
@@ -22,10 +22,28 @@ int	ft_ptrlen(char **ptr)
 	return (i);
 }
 
+void	ft_intswap(int *a, int *b)
+{
+	int tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void	ft_tabswap(char **a, char **b)
+{
+	char *tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 void	swap(char **tab, long int *tmp, int i, int j)
 {
 	long int	i_tmp;
-	char	*c_tmp;
+	char		*c_tmp;
 
 	i_tmp = tmp[i];
 	c_tmp = tab[i];
@@ -35,7 +53,7 @@ void	swap(char **tab, long int *tmp, int i, int j)
 	tab[j] = c_tmp;
 }
 
-int	simul_log(int n)
+int		simul_log(int n)
 {
 	int	i;
 

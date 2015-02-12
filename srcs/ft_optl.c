@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 12:41:34 by vle-guen          #+#    #+#             */
-/*   Updated: 2015/02/11 14:52:54 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/12 15:45:50 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@
 #include <sys/acl.h>
 #include <stdio.h>
 
-int	display_name(char *dir, char *files)
+int		display_name(char *dir, char *files)
 {
-	char	*test;
-	int	k;
-	int status;
-	struct stat buf;
+	char			*test;
+	int				k;
+	int				status;
+	struct stat		buf;
 
 	test = (char *)malloc(sizeof(char) * 256);
-	if (!test)
+	if (!test || (status = lstat(ft_make_path(dir, files), &buf)) == -1)
 		return (-1);
-	if((status = lstat(ft_make_path(dir, files), &buf)) == -1)
-	   return (-1);
 	if ((buf.st_mode & S_IFMT) == S_IFLNK)
 	{
 		k = readlink(ft_make_path(dir, files), test, 255);
@@ -56,13 +54,14 @@ int	display_name(char *dir, char *files)
 	return (k);
 }
 
-int	display_acl(char *dir, char *files)
+int		display_acl(char *dir, char *files)
 {
-	acl_t i;
-	acl_entry_t ent;
+	acl_t		i;
+	acl_entry_t	ent;
+
 	i = acl_init(1);
 	i = acl_get_link_np(ft_make_path(dir, files), ACL_TYPE_EXTENDED);
-	if(acl_get_entry(i, ACL_FIRST_ENTRY, &ent) == -1)
+	if (acl_get_entry(i, ACL_FIRST_ENTRY, &ent) == -1)
 	{
 		acl_free(i);
 		return (0);
@@ -70,49 +69,42 @@ int	display_acl(char *dir, char *files)
 	return (1);
 }
 
-int	display_exattributes(char *dir, char *files)
+int		display_exattributes(char *dir, char *files)
 {
-	char *test;
-	char *test2;
-	ssize_t	k;
-	int	status;
+	char		*test;
+	char		*test2;
+	ssize_t		k;
+	int			status;
 	struct stat	buf;
 
 	test = (char *)malloc(sizeof(char) * 256);
-	if (!test)
+	if (!test || (status = stat(ft_make_path(dir, files), &buf)) == -1)
 		return (-1);
-	if((status = stat(ft_make_path(dir, files), &buf)) == -1)
-	   return (-1);
 	if ((buf.st_mode & S_IFMT) == S_IFLNK)
 	{
 		test2 = (char *)malloc(sizeof(char) * 256);
 		k = readlink(ft_make_path(dir, files), test2, 255);
 		if (k == -1)
-		{
-			ft_putstr("erreur readlink");
 			return (-1);
-		}
-		k = listxattr(ft_make_path(dir, test2), test, 255, XATTR_SHOWCOMPRESSION);
+		k = listxattr(ft_make_path(dir, test2), test, 255, \
+				XATTR_SHOWCOMPRESSION);
 		free(test2);
 	}
 	else
-		k = listxattr(ft_make_path(dir, files),test, 255, XATTR_NOFOLLOW);
+		k = listxattr(ft_make_path(dir, files), test, 255, XATTR_NOFOLLOW);
 	if (k == -1)
-	{
-		/*ft_putstr("erreur attributes");*/
 		return (0);
-	}
 	free(test);
 	return (k);
 }
 
-int	display_type(char *path)
+int		display_type(char *path)
 {
-	int status;
-	struct stat buf;
+	int				status;
+	struct stat		buf;
 
-	if((status = lstat(path, &buf)) == -1)
-	   return (-1);
+	if ((status = lstat(path, &buf)) == -1)
+		return (-1);
 	if ((buf.st_mode & S_IFMT) == S_IFIFO)
 		ft_putchar('p');
 	else if ((buf.st_mode & S_IFMT) == S_IFREG)
@@ -132,21 +124,14 @@ int	display_type(char *path)
 	return (0);
 }
 
-int	display_chmod1(char *path)
+int		display_chmod1(char *path)
 {
-	int status;
-	struct stat buf;
+	struct stat		buf;
 
-	if((status = lstat(path, &buf)) == -1)
-	   return (-1);
-	if ((buf.st_mode & S_IRUSR))
-		ft_putchar('r');
-	else
-		ft_putchar('-');
-	if ((buf.st_mode & S_IWUSR))
-		ft_putchar('w');	
-	else
-		ft_putchar('-');
+	if (lstat(path, &buf) == -1)
+		return (-1);
+	ft_putchar(buf.st_mode & S_IRUSR ? 'r' : '-');
+	ft_putchar(buf.st_mode & S_IWUSR ? 'w' : '-');
 	if ((buf.st_mode & S_IXUSR))
 	{
 		if ((buf.st_mode & S_ISUID))
@@ -164,21 +149,14 @@ int	display_chmod1(char *path)
 	return (0);
 }
 
-int	display_chmod2(char *path)
+int		display_chmod2(char *path)
 {
-	int status;
-	struct stat buf;
+	struct stat	buf;
 
-	if((status = lstat(path, &buf)) == -1)
-	   return (-1);
-	if ((buf.st_mode & S_IRGRP))
-		ft_putchar('r');
-	else
-		ft_putchar('-');
-	if ((buf.st_mode & S_IWGRP))
-		ft_putchar('w');
-	else
-		ft_putchar('-');
+	if (lstat(path, &buf) == -1)
+		return (-1);
+	ft_putchar(buf.st_mode & S_IRGRP ? 'r' : '-');
+	ft_putchar(buf.st_mode & S_IWGRP ? 'w' : '-');
 	if ((buf.st_mode & S_IXGRP))
 	{
 		if ((buf.st_mode & S_ISGID))
@@ -196,13 +174,13 @@ int	display_chmod2(char *path)
 	return (0);
 }
 
-int	display_chmod3(char *path)
+int		display_chmod3(char *path)
 {
-	int status;
-	struct stat buf;
+	int				status;
+	struct stat		buf;
 
-	if((status = lstat(path, &buf)) == -1)
-	   return (-1);
+	if ((status = lstat(path, &buf)) == -1)
+		return (-1);
 	if ((buf.st_mode & S_IROTH))
 		ft_putchar('r');
 	else
@@ -227,7 +205,7 @@ int	display_chmod3(char *path)
 
 int		find_intlength(int n)
 {
-	int i;
+	int		i;
 
 	i = 1;
 	while (n > 9)
@@ -249,12 +227,12 @@ int		find_maxlength(char *dir, char **path, int flag)
 {
 	int			k;
 	int			status;
-	struct stat buf;
-	int i;
+	struct stat	buf;
+	int			i;
 
-	i = 0;
+	i = -1;
 	k = 1;
-	while (path[i] != NULL)
+	while (path[++i] != NULL)
 	{
 		if ((status = lstat(ft_make_path(dir, path[i]), &buf)) == -1)
 			return (-1);
@@ -266,7 +244,6 @@ int		find_maxlength(char *dir, char **path, int flag)
 			k = max(k, find_intlength(major(buf.st_rdev)));
 		if (flag == 3)
 			k = max(k, find_intlength(minor(buf.st_rdev)));
-		i++;
 	}
 	if (flag == 0)
 		k++;
@@ -277,13 +254,13 @@ int		find_maxlength(char *dir, char **path, int flag)
 
 int		find_maxcharlength(char *dir, char **path, int flag)
 {
-	int	k;
-	int i;
-	struct stat	buf;
+	int				k;
+	int				i;
+	struct stat		buf;
 
-	i = 0;
+	i = -1;
 	k = 1;
-	while (path[i] != NULL)
+	while (path[++i] != NULL)
 	{
 		stat(ft_make_path(dir, path[i]), &buf);
 		if (flag == 0)
@@ -300,10 +277,8 @@ int		find_maxcharlength(char *dir, char **path, int flag)
 			else
 				k = max(k, ft_strlen(ft_itoa(buf.st_gid)));
 		}
-		i++;
 	}
-	k = k + 2;
-	return (k);
+	return (k + 2);
 }
 
 int		display_spacingint(int n, int k)
@@ -345,10 +320,7 @@ char	*display_modiftime(char *s, int flag)
 	if (s)
 	{
 		if (flag == 0)
-		{
-			dest = ft_strjoin(ft_strsub(s, 4, 7), ft_strsub(s, 19, 5));
-			return (dest);
-		}
+			return (ft_strjoin(ft_strsub(s, 4, 7), ft_strsub(s, 19, 5)));
 		if (flag == 1)
 		{
 			i = 0;
@@ -368,13 +340,13 @@ char	*display_modiftime(char *s, int flag)
 
 int		display_total(char *dir, char **files)
 {
+	int			status;
+	struct stat	buf;
+	int			nb_blocks;
+	int			i;
+
 	if (*files == NULL)
 		return (0);
-	int	status;
-	struct stat	buf;
-	int	nb_blocks;
-	int	i;
-
 	i = 0;
 	nb_blocks = 0;
 	while (files[i] != NULL)
@@ -393,11 +365,13 @@ int		display_total(char *dir, char **files)
 int		findblkchr(char *dir, char **tab)
 {
 	struct stat buf;
+
 	while (*tab)
 	{
-		if(lstat(ft_make_path(dir, *tab), &buf) == -1)
+		if (lstat(ft_make_path(dir, *tab), &buf) == -1)
 			return (-1);
-		else if ((buf.st_mode & S_IFMT) == S_IFCHR || (buf.st_mode & S_IFMT) == S_IFBLK)
+		else if ((buf.st_mode & S_IFMT) == S_IFCHR || \
+				(buf.st_mode & S_IFMT) == S_IFBLK)
 			return (1);
 		tab++;
 	}
@@ -406,15 +380,15 @@ int		findblkchr(char *dir, char **tab)
 
 int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 {
-	int			status;
-	struct stat	buf;
+	int				status;
+	struct stat		buf;
 	struct passwd	*pwd;
 	struct group	*grp;
-	char		*result;
-	int i;
-	int tab[5];
-	char *pathtmp;
-	int hasblkorchr;
+	char			*result;
+	int				i;
+	int				tab[5];
+	char			*pathtmp;
+	int				hasblkorchr;
 
 	hasblkorchr = findblkchr(dir, files);
 	i = 0;
@@ -445,9 +419,7 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 			ft_putstr("error chmod2");
 		if ((display_chmod3(pathtmp)) == -1)
 			ft_putstr("error chmod3");
-		/*if ((display_exattributes(dir, files[i])))
-			ft_putchar('@');*/
-		else if ((display_acl(dir, files[i])) 
+		else if ((display_acl(dir, files[i]))
 				&& (!display_exattributes(dir, files[i])))
 			ft_putchar('+');
 		else
@@ -469,7 +441,6 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 				ft_putnbr(buf.st_uid);
 				display_spaceuid(ft_itoa(buf.st_uid), tab[2]);
 			}
-			
 		}
 		grp = getgrgid(buf.st_gid);
 		if (grp)
@@ -483,9 +454,9 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 			ft_putnbr(buf.st_gid);
 			display_spaceuid(ft_itoa(buf.st_gid), tab[3]);
 		}
-		if ((buf.st_mode & S_IFMT) == S_IFCHR || (buf.st_mode & S_IFMT) == S_IFBLK)
+		if ((buf.st_mode & S_IFMT) == S_IFCHR || \
+				(buf.st_mode & S_IFMT) == S_IFBLK)
 		{
-			/* RDEV MINOR VERSION FUCK UP */
 			display_spacingint(major(buf.st_rdev), tab[4]);
 			ft_putnbr(major(buf.st_rdev));
 			ft_putstr(", ");
@@ -500,9 +471,10 @@ int		ft_optl(char *dir, char **files, t_ls_options *opts, int isdir)
 			ft_putnbr(buf.st_size);
 		}
 		ft_putchar(' ');
-		if (buf.st_mtime < (time(NULL) - 15778800) || buf.st_mtime > (time(NULL) + 3600))
+		if (buf.st_mtime < (time(NULL) - 15778800) || \
+				buf.st_mtime > (time(NULL) + 3600))
 			ft_putstr(display_modiftime(ctime(&(buf.st_mtime)), 0));
-		else 
+		else
 			ft_putstr(display_modiftime(ctime(&(buf.st_mtime)), 1));
 		ft_putchar(' ');
 		display_name(dir, files[i]);

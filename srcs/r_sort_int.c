@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:34:15 by jabadie           #+#    #+#             */
-/*   Updated: 2014/12/08 14:35:26 by jabadie          ###   ########.fr       */
+/*   Updated: 2015/02/12 15:56:59 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char		**r_sort_last_acces(char *dir, char **tab)
 	return (tab);
 }
 
-char			**r_sortsize_tab(char *dir, char **tab)
+char		**r_sortsize_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
@@ -65,7 +65,7 @@ char			**r_sortsize_tab(char *dir, char **tab)
 	return (tab);
 }
 
-char			**r_sorttime_tab(char *dir, char **tab)
+char		**r_sorttime_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;

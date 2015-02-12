@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 19:06:16 by jabadie           #+#    #+#             */
-/*   Updated: 2014/12/08 14:37:13 by jabadie          ###   ########.fr       */
+/*   Updated: 2015/02/12 15:48:01 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int		split_sort(char **tab, long int *tmp, int start, int end)
 	return (left);
 }
 
-void	int_quick_sort(char **tab, long int *tmp, int start, int end)
+void			int_quick_sort(char **tab, long int *tmp, int start, int end)
 {
 	int key;
 
@@ -50,7 +50,7 @@ void	int_quick_sort(char **tab, long int *tmp, int start, int end)
 	}
 }
 
-void	sortlg_after(char **tab, long int *tmp)
+void			sortlg_after(char **tab, long int *tmp)
 {
 	int	i;
 	int	start;
@@ -73,7 +73,7 @@ void	sortlg_after(char **tab, long int *tmp)
 		if (first == 0)
 			all_quick_sort(tab, start, start + len, simul_log(len));
 		if (tab[i] == NULL)
-			break;
+			break ;
 		i++;
 	}
 }

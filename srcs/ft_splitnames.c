@@ -6,7 +6,7 @@
 /*   By: vle-guen <vle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 13:19:24 by vle-guen          #+#    #+#             */
-/*   Updated: 2015/02/11 14:45:05 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/12 15:53:10 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 
 int		*def_items(char **tab, int *dex)
 {
@@ -62,36 +61,19 @@ int		splitnames(char **tab, char ***files, char ***dir, t_ls_options *opts)
 
 	dex[2] = 0;
 	def_items(tab, dex);
-	if (dex[0] == -1)
+	if (dex[0] == -1 || (dex[3] = alloc_ptr(files, dir, dex)) == -1)
 		return (-1);
-	if ((dex[3] = alloc_ptr(files, dir, dex)) == -1)
-		return (-1);
-	dex[0] = 0;
-	dex[1] = 0;
+	ft_bzero(dex, 2 * sizeof(int));
 	while (dex[2] < ft_ptrlen(tab))
 	{
 		if (opts->l)
 			dex[3] = lstat(tab[dex[2]], &st_buf);
 		else
 			dex[3] = stat(tab[dex[2]], &st_buf);
-		/*if (dex[3])
-		{*/
-			/*perror(NULL);
-			ft_putstr_fd("ls: ", 2);
-			ft_putstr_fd(tab[dex[2]], 2);
-			ft_putendl_fd(": No such file or directory 1", 2);*/
-			//return(-1);
-		/*}
-		else */if (S_ISDIR(st_buf.st_mode))
-		{
-			(*dir)[dex[0]] = tab[dex[2]];
-			dex[0] = dex[0] + 1;
-		}
+		if (S_ISDIR(st_buf.st_mode))
+			(*dir)[dex[0]++] = tab[dex[2]];
 		else
-		{
-			(*files)[dex[1]] = tab[dex[2]];
-			dex[1] = dex[1] + 1;
-		}
+			(*files)[dex[1]++] = tab[dex[2]];
 		dex[2]++;
 	}
 	(*dir)[dex[0]] = NULL;

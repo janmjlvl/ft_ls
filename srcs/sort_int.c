@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:43:05 by jabadie           #+#    #+#             */
-/*   Updated: 2015/02/11 15:10:11 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/12 16:01:40 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char		**sort_last_acces(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
-	long int				*tmp;
+	long int		*tmp;
 
 	i = 0;
 	while (tab[i] != '\0')
@@ -42,7 +42,7 @@ char		**sort_last_acces(char *dir, char **tab)
 	return (tab);
 }
 
-char			**sortsize_tab(char *dir, char **tab)
+char		**sortsize_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
@@ -66,7 +66,7 @@ char			**sortsize_tab(char *dir, char **tab)
 	return (tab);
 }
 
-char			**sorttime_tab(char *dir, char **tab)
+char		**sorttime_tab(char *dir, char **tab)
 {
 	struct stat		s_stat;
 	int				i;
