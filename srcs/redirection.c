@@ -6,7 +6,7 @@
 /*   By: jabadie <jabadie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 15:49:58 by jabadie           #+#    #+#             */
-/*   Updated: 2015/02/12 16:14:44 by nmeier           ###   ########.fr       */
+/*   Updated: 2015/02/17 11:46:58 by nmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,28 @@ void	check_tab(char **tab)
 	}
 }
 
+void	printdir(char **files, char **dir, t_ls_options *opts, int i)
+{
+	char **ret;
+
+	if (*files || dir[1] != NULL || opts->files_nbr > 1)
+	{
+		ft_putstr(dir[i]);
+		ft_putendl(":");
+	}
+	ret = ft_list_dir(dir[i]);
+	if (ret)
+	{
+		opt_sort(opts, dir[i], ret);
+		ft_display_tab(dir[i], ret, opts, 1);
+		if (dir[i + 1] != NULL)
+			ft_putchar('\n');
+	}
+}
+
 void	handledirs(char **files, char **dir, t_ls_options *opts)
 {
-	int i;
-	char	**ret;
+	int		i;
 	int		first;
 
 	first = 1;
@@ -81,19 +99,7 @@ void	handledirs(char **files, char **dir, t_ls_options *opts)
 		}
 		while (dir[i] != NULL)
 		{
-			if (*files || dir[1] != NULL || opts->files_nbr > 1)
-			{
-				ft_putstr(dir[i]);
-				ft_putendl(":");
-			}
-			ret = ft_list_dir(dir[i]);
-			if (ret)
-			{
-				opt_sort(opts, dir[i], ret);
-				ft_display_tab(dir[i], ret, opts, 1);
-				if (dir[i + 1] != NULL)
-					ft_putchar('\n');
-			}
+			printdir(files, dir, opts, i);
 			i++;
 		}
 	}
@@ -120,5 +126,4 @@ void	ft_redirec(t_ls_options *opts)
 			ft_putchar('\n');
 	}
 	handledirs(files, dir, opts);
-
 }
